@@ -2,12 +2,12 @@ require "kafka/consumer_group"
 require "kafka/offset_manager"
 require "kafka/fetch_operation"
 
-module Kafka
+module EbKafka
 
-  # A client that consumes messages from a Kafka cluster in coordination with
+  # A client that consumes messages from a EbKafka cluster in coordination with
   # other clients.
   #
-  # A Consumer subscribes to one or more Kafka topics; all consumers with the
+  # A Consumer subscribes to one or more EbKafka topics; all consumers with the
   # same *group id* then agree on who should read from the individual topic
   # partitions. When group members join or leave, the group synchronizes,
   # making sure that all partitions are assigned to a single member, and that
@@ -20,12 +20,12 @@ module Kafka
   #
   #     require "kafka"
   #
-  #     kafka = Kafka.new(["kafka1:9092", "kafka2:9092"])
+  #     kafka = EbKafka.new(["kafka1:9092", "kafka2:9092"])
   #
   #     # Create a new Consumer instance in the group `my-group`:
   #     consumer = kafka.consumer(group_id: "my-group")
   #
-  #     # Subscribe to a Kafka topic:
+  #     # Subscribe to a EbKafka topic:
   #     consumer.subscribe("messages")
   #
   #     # Loop forever, reading in messages from all topics that have been
@@ -171,7 +171,7 @@ module Kafka
     # Each message is yielded to the provided block. If the block returns
     # without raising an exception, the message will be considered successfully
     # processed. At regular intervals the offset of the most recent successfully
-    # processed message in each partition will be committed to the Kafka
+    # processed message in each partition will be committed to the EbKafka
     # offset store. If the consumer crashes or leaves the group, the group member
     # that is tasked with taking over processing of these partitions will resume
     # at the last committed offsets.
@@ -186,11 +186,11 @@ module Kafka
     # @param automatically_mark_as_processed [Boolean] whether to automatically
     #   mark a message as successfully processed when the block returns
     #   without an exception. Once marked successful, the offsets of processed
-    #   messages can be committed to Kafka.
-    # @yieldparam message [Kafka::FetchedMessage] a message fetched from Kafka.
-    # @raise [Kafka::ProcessingError] if there was an error processing a message.
+    #   messages can be committed to EbKafka.
+    # @yieldparam message  [EbKafka::FetchedMessage] a message fetched from EbKafka.
+    # @raise  [EbKafka::ProcessingError] if there was an error processing a message.
     #   The original exception will be returned by calling `#cause` on the
-    #   {Kafka::ProcessingError} instance.
+    #    {EbKafka::ProcessingError} instance.
     # @return [nil]
     def each_message(min_bytes: 1, max_bytes: 10485760, max_wait_time: 1, automatically_mark_as_processed: true)
       consumer_loop do
@@ -262,7 +262,7 @@ module Kafka
     # Each batch of messages is yielded to the provided block. If the block returns
     # without raising an exception, the batch will be considered successfully
     # processed. At regular intervals the offset of the most recent successfully
-    # processed message batch in each partition will be committed to the Kafka
+    # processed message batch in each partition will be committed to the EbKafka
     # offset store. If the consumer crashes or leaves the group, the group member
     # that is tasked with taking over processing of these partitions will resume
     # at the last committed offsets.
@@ -277,8 +277,8 @@ module Kafka
     # @param automatically_mark_as_processed [Boolean] whether to automatically
     #   mark a batch's messages as successfully processed when the block returns
     #   without an exception. Once marked successful, the offsets of processed
-    #   messages can be committed to Kafka.
-    # @yieldparam batch [Kafka::FetchedBatch] a message batch fetched from Kafka.
+    #   messages can be committed to EbKafka.
+    # @yieldparam batch  [EbKafka::FetchedBatch] a message batch fetched from EbKafka.
     # @return [nil]
     def each_batch(min_bytes: 1, max_bytes: 10485760, max_wait_time: 1, automatically_mark_as_processed: true)
       consumer_loop do
@@ -395,7 +395,7 @@ module Kafka
       end
     ensure
       # In order to quickly have the consumer group re-balance itself, it's
-      # important that members explicitly tell Kafka when they're leaving.
+      # important that members explicitly tell EbKafka when they're leaving.
       make_final_offsets_commit!
       @group.leave rescue nil
       @running = false
@@ -412,7 +412,7 @@ module Kafka
       @logger.error "Retrying to make final offsets commit (#{attempts} attempts left)"
       sleep(0.1)
       make_final_offsets_commit!(attempts - 1)
-    rescue Kafka::Error => e
+    rescue EbKafka::Error => e
       @logger.error "Encountered error while shutting down; #{e.class}: #{e.message}"
     end
 
@@ -459,7 +459,7 @@ module Kafka
             offset = @offset_manager.next_offset_for(topic, partition)
           else
             # When automatic marking is off, the first poll needs to be based on the last committed
-            # offset from Kafka, that's why we fallback in case of nil (it may not be 0)
+            # offset from EbKafka, that's why we fallback in case of nil (it may not be 0)
             if @current_offsets[topic].key?(partition)
               offset = @current_offsets[topic][partition] + 1
             else

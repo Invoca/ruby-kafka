@@ -1,6 +1,6 @@
 require "socket"
 
-module Kafka
+module EbKafka
 
   # Opens sockets in a non-blocking fashion, ensuring that we're not stalling
   # for long periods of time.

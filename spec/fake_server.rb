@@ -29,30 +29,30 @@ class FakeServer
   end
 
   def handle_client(client)
-    encoder = Kafka::Protocol::Encoder.new(client)
-    decoder = Kafka::Protocol::Decoder.new(client)
+    encoder = EbKafka::Protocol::Encoder.new(client)
+    decoder = EbKafka::Protocol::Decoder.new(client)
 
     loop do
       request_bytes = decoder.bytes
-      request_data = Kafka::Protocol::Decoder.new(StringIO.new(request_bytes))
+      request_data = EbKafka::Protocol::Decoder.new(StringIO.new(request_bytes))
       api_key = request_data.int16
       api_version = request_data.int16
       correlation_id = request_data.int32
       client_id = request_data.string
 
       response = StringIO.new
-      response_encoder = Kafka::Protocol::Encoder.new(response)
+      response_encoder = EbKafka::Protocol::Encoder.new(response)
       response_encoder.write_int32(correlation_id)
 
       case api_key
-      when Kafka::Protocol::SASL_HANDSHAKE_API
+      when EbKafka::Protocol::SASL_HANDSHAKE_API
         message = request_data.string
 
         response_encoder.write_int16(0)
         response_encoder.write_array(SUPPORTED_MECHANISMS) { |m| response_encoder.write_string(m) }
         encoder.write_bytes(response.string)
         auth(message, encoder, decoder)
-      when Kafka::Protocol::API_VERSIONS_API
+      when EbKafka::Protocol::API_VERSIONS_API
         response_encoder.write_int16(0)
         response_encoder.write_array([]) { |m| response_encoder.write_string(m) }
         encoder.write_bytes(response.string)

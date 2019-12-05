@@ -1,6 +1,6 @@
 require "kafka/protocol/message"
 
-module Kafka
+module EbKafka
 
   # Buffers messages for specific topics/partitions.
   class MessageBuffer

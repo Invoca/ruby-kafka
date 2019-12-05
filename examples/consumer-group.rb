@@ -5,11 +5,11 @@ require "kafka"
 logger = Logger.new(STDOUT)
 brokers = ENV.fetch("KAFKA_BROKERS", "localhost:9092").split(",")
 
-# Make sure to create this topic in your Kafka cluster or configure the
+# Make sure to create this topic in your EbKafka cluster or configure the
 # cluster to auto-create topics.
 topic = "text"
 
-kafka = Kafka.new(
+kafka = EbKafka.new(
   seed_brokers: brokers,
   client_id: "test",
   socket_timeout: 20,

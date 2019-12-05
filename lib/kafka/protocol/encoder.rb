@@ -1,6 +1,6 @@
 require "stringio"
 
-module Kafka
+module EbKafka
   module Protocol
 
     # An encoder wraps an IO object, making it easy to write specific data types

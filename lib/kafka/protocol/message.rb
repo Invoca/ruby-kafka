@@ -1,7 +1,7 @@
 require "stringio"
 require "zlib"
 
-module Kafka
+module EbKafka
   module Protocol
 
     # ## API Specification
@@ -49,7 +49,7 @@ module Kafka
         @codec_id != 0
       end
 
-      # @return [Array<Kafka::Protocol::Message>]
+      # @return [Array <EbKafka::Protocol::Message>]
       def decompress
         codec = Compression.find_codec_by_id(@codec_id)
 
@@ -70,7 +70,7 @@ module Kafka
         attributes = message_decoder.int8
 
         # The magic byte indicates the message format version. There are situations
-        # where an old message format can be returned from a newer version of Kafka,
+        # where an old message format can be returned from a newer version of EbKafka,
         # because old messages are not necessarily rewritten on upgrades.
         case magic_byte
         when 0
@@ -80,11 +80,11 @@ module Kafka
           timestamp = message_decoder.int64
 
           # If the timestamp is set to zero, it's because the message has been upgraded
-          # from the Kafka 0.9 disk format to the Kafka 0.10 format. The former didn't
+          # from the EbKafka 0.9 disk format to the EbKafka 0.10 format. The former didn't
           # have a timestamp attribute, so we'll just set the timestamp to nil.
           timestamp = nil if timestamp.zero?
         else
-          raise Kafka::Error, "Invalid magic byte: #{magic_byte}"
+          raise EbKafka::Error, "Invalid magic byte: #{magic_byte}"
         end
 
         key = message_decoder.bytes
@@ -94,7 +94,7 @@ module Kafka
         # attributes.
         codec_id = attributes & 0b111
 
-        # The timestamp will be nil if the message was written in the Kafka 0.9 log format.
+        # The timestamp will be nil if the message was written in the EbKafka 0.9 log format.
         create_time = timestamp && Time.at(timestamp / 1000.0)
 
         new(key: key, value: value, codec_id: codec_id, offset: offset, create_time: create_time)

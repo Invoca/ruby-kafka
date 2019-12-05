@@ -5,9 +5,9 @@ require "kafka/protocol/request_message"
 require "kafka/protocol/encoder"
 require "kafka/protocol/decoder"
 
-module Kafka
+module EbKafka
 
-  # A connection to a single Kafka broker.
+  # A connection to a single EbKafka broker.
   #
   # Usually you'll need a separate connection to each broker in a cluster, since most
   # requests must be directed specifically to the broker that is currently leader for
@@ -34,7 +34,7 @@ module Kafka
     attr_reader :encoder
     attr_reader :decoder
 
-    # Opens a connection to a Kafka broker.
+    # Opens a connection to a EbKafka broker.
     #
     # @param host [String] the hostname of the broker.
     # @param port [Integer] the port of the broker.
@@ -124,8 +124,8 @@ module Kafka
         @socket = SocketWithTimeout.new(@host, @port, connect_timeout: @connect_timeout, timeout: @socket_timeout)
       end
 
-      @encoder = Kafka::Protocol::Encoder.new(@socket)
-      @decoder = Kafka::Protocol::Decoder.new(@socket)
+      @encoder = EbKafka::Protocol::Encoder.new(@socket)
+      @decoder = EbKafka::Protocol::Decoder.new(@socket)
 
       # Correlation id is initialized to zero and bumped for each request.
       @correlation_id = 0
@@ -149,7 +149,7 @@ module Kafka
     #
     # @return [nil]
     def write_request(request, notification)
-      message = Kafka::Protocol::RequestMessage.new(
+      message = EbKafka::Protocol::RequestMessage.new(
         api_key: request.api_key,
         api_version: request.respond_to?(:api_version) ? request.api_version : 0,
         correlation_id: @correlation_id,
@@ -157,7 +157,7 @@ module Kafka
         request: request,
       )
 
-      data = Kafka::Protocol::Encoder.encode_with(message)
+      data = EbKafka::Protocol::Encoder.encode_with(message)
       notification[:request_size] = data.bytesize
 
       @encoder.write_bytes(data)
@@ -181,7 +181,7 @@ module Kafka
       notification[:response_size] = data.bytesize
 
       buffer = StringIO.new(data)
-      response_decoder = Kafka::Protocol::Decoder.new(buffer)
+      response_decoder = EbKafka::Protocol::Decoder.new(buffer)
 
       correlation_id = response_decoder.int32
       response = response_class.decode(response_decoder)
@@ -205,7 +205,7 @@ module Kafka
         if correlation_id < @correlation_id
           @logger.error "Received out-of-order response id #{correlation_id}, was expecting #{@correlation_id}"
         elsif correlation_id > @correlation_id
-          raise Kafka::Error, "Correlation id mismatch: expected #{@correlation_id} but got #{correlation_id}"
+          raise EbKafka::Error, "Correlation id mismatch: expected #{@correlation_id} but got #{correlation_id}"
         else
           return response
         end

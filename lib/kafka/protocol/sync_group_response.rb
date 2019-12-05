@@ -1,6 +1,6 @@
 require "kafka/protocol/member_assignment"
 
-module Kafka
+module EbKafka
   module Protocol
     class SyncGroupResponse
       attr_reader :error_code, :member_assignment

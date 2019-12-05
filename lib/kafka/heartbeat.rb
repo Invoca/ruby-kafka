@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   class Heartbeat
     def initialize(group:, interval:)
       @group = group

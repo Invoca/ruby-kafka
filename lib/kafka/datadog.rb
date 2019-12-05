@@ -1,26 +1,26 @@
 begin
   require "datadog/statsd"
 rescue LoadError
-  $stderr.puts "In order to report Kafka client metrics to Datadog you need to install the `dogstatsd-ruby` gem."
+  $stderr.puts "In order to report EbKafka client metrics to Datadog you need to install the `dogstatsd-ruby` gem."
   raise
 end
 
 require "active_support/subscriber"
 
-module Kafka
+module EbKafka
 
   # Reports operational metrics to a Datadog agent using the modified Statsd protocol.
   #
   #     require "kafka/datadog"
   #
   #     # Default is "ruby_kafka".
-  #     Kafka::Datadog.namespace = "custom-namespace"
+  #     EbKafka::Datadog.namespace = "custom-namespace"
   #
   #     # Default is "127.0.0.1".
-  #     Kafka::Datadog.host = "statsd.something.com"
+  #     EbKafka::Datadog.host = "statsd.something.com"
   #
   #     # Default is 8125.
-  #     Kafka::Datadog.port = 1234
+  #     EbKafka::Datadog.port = 1234
   #
   # Once the file has been required, no further configuration is needed – all operational
   # metrics are automatically emitted.
@@ -88,7 +88,7 @@ module Kafka
       def emit(type, *args, tags: {})
         tags = tags.map {|k, v| "#{k}:#{v}" }.to_a
 
-        Kafka::Datadog.statsd.send(type, *args, tags: tags)
+        EbKafka::Datadog.statsd.send(type, *args, tags: tags)
       end
     end
 
@@ -271,7 +271,7 @@ module Kafka
 
         timing("producer.deliver.latency", event.duration, tags: tags)
 
-        # Messages delivered to Kafka:
+        # Messages delivered to EbKafka:
         count("producer.deliver.messages", message_count, tags: tags)
 
         # Number of attempts to deliver messages:

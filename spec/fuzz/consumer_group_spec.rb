@@ -10,7 +10,7 @@ describe "Consumer groups", fuzz: true do
   before do
     logger.level = Logger::INFO
 
-    kafka = Kafka.new(kafka_brokers, logger: logger)
+    kafka = EbKafka.new(kafka_brokers, logger: logger)
     producer = kafka.producer(max_buffer_size: num_messages)
 
     messages.each do |i|
@@ -65,7 +65,7 @@ describe "Consumer groups", fuzz: true do
 
   def start_consumer(group_id, result_queue)
     thread = Thread.new do
-      kafka = Kafka.new(
+      kafka = EbKafka.new(
         kafka_brokers,
         logger: logger,
         socket_timeout: 20,

@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
     class JoinGroupResponse
       attr_reader :error_code

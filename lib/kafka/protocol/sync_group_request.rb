@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
     class SyncGroupRequest
       def initialize(group_id:, generation_id:, member_id:, group_assignment: {})

@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   class SnappyCodec
     def codec_id
       2

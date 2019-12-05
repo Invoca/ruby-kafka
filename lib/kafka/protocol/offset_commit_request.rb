@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
     class OffsetCommitRequest
       # This value signals to the broker that its default configuration should be used.

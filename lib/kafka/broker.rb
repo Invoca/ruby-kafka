@@ -2,7 +2,7 @@ require "logger"
 require "kafka/connection"
 require "kafka/protocol"
 
-module Kafka
+module EbKafka
   class Broker
     def initialize(connection_builder:, host:, port:, node_id: nil, logger:)
       @connection_builder = connection_builder
@@ -34,8 +34,8 @@ module Kafka
 
     # Fetches cluster metadata from the broker.
     #
-    # @param (see Kafka::Protocol::MetadataRequest#initialize)
-    # @return [Kafka::Protocol::MetadataResponse]
+    # @param (see EbKafka::Protocol::MetadataRequest#initialize)
+    # @return  [EbKafka::Protocol::MetadataResponse]
     def fetch_metadata(**options)
       request = Protocol::MetadataRequest.new(**options)
 
@@ -44,8 +44,8 @@ module Kafka
 
     # Fetches messages from a specified topic and partition.
     #
-    # @param (see Kafka::Protocol::FetchRequest#initialize)
-    # @return [Kafka::Protocol::FetchResponse]
+    # @param (see EbKafka::Protocol::FetchRequest#initialize)
+    # @return  [EbKafka::Protocol::FetchResponse]
     def fetch_messages(**options)
       request = Protocol::FetchRequest.new(**options)
 
@@ -54,8 +54,8 @@ module Kafka
 
     # Lists the offset of the specified topics and partitions.
     #
-    # @param (see Kafka::Protocol::ListOffsetRequest#initialize)
-    # @return [Kafka::Protocol::ListOffsetResponse]
+    # @param (see EbKafka::Protocol::ListOffsetRequest#initialize)
+    # @return  [EbKafka::Protocol::ListOffsetResponse]
     def list_offsets(**options)
       request = Protocol::ListOffsetRequest.new(**options)
 
@@ -64,8 +64,8 @@ module Kafka
 
     # Produces a set of messages to the broker.
     #
-    # @param (see Kafka::Protocol::ProduceRequest#initialize)
-    # @return [Kafka::Protocol::ProduceResponse]
+    # @param (see EbKafka::Protocol::ProduceRequest#initialize)
+    # @return  [EbKafka::Protocol::ProduceResponse]
     def produce(**options)
       request = Protocol::ProduceRequest.new(**options)
 

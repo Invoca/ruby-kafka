@@ -9,8 +9,8 @@ describe "Producer API", functional: true do
   end
 
   example "listing available topics in the cluster" do
-    # Use a clean Kafka instance to avoid hitting caches.
-    kafka = Kafka.new(KAFKA_BROKERS, logger: LOGGER)
+    # Use a clean EbKafka instance to avoid hitting caches.
+    kafka = EbKafka.new(KAFKA_BROKERS, logger: LOGGER)
 
     topics = kafka.topics
 
@@ -27,7 +27,7 @@ describe "Producer API", functional: true do
   example "fetching the partition count for a topic that doesn't yet exist" do
     topic = "unknown-topic-#{rand(1000)}"
 
-    expect { kafka.partitions_for(topic) }.to raise_exception(Kafka::LeaderNotAvailable)
+    expect { kafka.partitions_for(topic) }.to raise_exception(EbKafka::LeaderNotAvailable)
 
     # Eventually the call should succeed.
     expect {
@@ -54,8 +54,8 @@ describe "Producer API", functional: true do
       Timecop.freeze(now) do
         kafka.deliver_message("yolo", topic: topic, key: "xoxo", partition: 0)
       end
-    }.to raise_exception(Kafka::DeliveryFailed) {|exception|
-      expect(exception.failed_messages).to eq [Kafka::PendingMessage.new("yolo", "xoxo", topic, 0, nil, now)]
+    }.to raise_exception(EbKafka::DeliveryFailed) {|exception|
+      expect(exception.failed_messages).to eq  [EbKafka::PendingMessage.new("yolo", "xoxo", topic, 0, nil, now)]
     }
   end
 

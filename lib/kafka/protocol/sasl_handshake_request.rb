@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
 
     # SaslHandshake Request (Version: 0) => mechanism
@@ -10,7 +10,7 @@ module Kafka
 
       def initialize(mechanism)
         unless SUPPORTED_MECHANISMS.include?(mechanism)
-          raise Kafka::Error, "Unsupported SASL mechanism #{mechanism}. Supported are #{SUPPORTED_MECHANISMS.join(', ')}"
+          raise EbKafka::Error, "Unsupported SASL mechanism #{mechanism}. Supported are #{SUPPORTED_MECHANISMS.join(', ')}"
         end
         @mechanism = mechanism
       end

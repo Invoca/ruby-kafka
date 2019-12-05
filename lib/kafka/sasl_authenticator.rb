@@ -2,7 +2,7 @@ require 'kafka/sasl/plain'
 require 'kafka/sasl/gssapi'
 require 'kafka/sasl/scram'
 
-module Kafka
+module EbKafka
   class SaslAuthenticator
     def initialize(logger:, sasl_gssapi_principal:, sasl_gssapi_keytab:,
                    sasl_plain_authzid:, sasl_plain_username:, sasl_plain_password:,
@@ -36,10 +36,10 @@ module Kafka
       return if mechanism.nil?
 
       ident = mechanism.ident
-      response = connection.send_request(Kafka::Protocol::SaslHandshakeRequest.new(ident))
+      response = connection.send_request(EbKafka::Protocol::SaslHandshakeRequest.new(ident))
 
       unless response.error_code == 0 && response.enabled_mechanisms.include?(ident)
-        raise Kafka::Error, "#{ident} is not supported."
+        raise EbKafka::Error, "#{ident} is not supported."
       end
 
       mechanism.authenticate!(connection.to_s, connection.encoder, connection.decoder)

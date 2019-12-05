@@ -6,17 +6,17 @@ require "kafka/pending_message_queue"
 require "kafka/pending_message"
 require "kafka/compressor"
 
-module Kafka
+module EbKafka
 
-  # Allows sending messages to a Kafka cluster.
+  # Allows sending messages to a EbKafka cluster.
   #
-  # Typically you won't instantiate this class yourself, but rather have {Kafka::Client}
+  # Typically you won't instantiate this class yourself, but rather have  {EbKafka::Client}
   # do it for you, e.g.
   #
-  #     # Will instantiate Kafka::Client
-  #     kafka = Kafka.new(["kafka1:9092", "kafka2:9092"])
+  #     # Will instantiate EbKafka::Client
+  #     kafka = EbKafka.new(["kafka1:9092", "kafka2:9092"])
   #
-  #     # Will instantiate Kafka::Producer
+  #     # Will instantiate EbKafka::Producer
   #     producer = kafka.producer
   #
   # This is done in order to share a logger as well as a pool of broker connections across
@@ -52,7 +52,7 @@ module Kafka
   # ## Compression
   #
   # Depending on what kind of data you produce, enabling compression may yield improved
-  # bandwidth and space usage. Compression in Kafka is done on entire messages sets
+  # bandwidth and space usage. Compression in EbKafka is done on entire messages sets
   # rather than on individual messages. This improves the compression rate and generally
   # means that compressions works better the larger your buffers get, since the message
   # sets will be larger by the time they're compressed.
@@ -63,7 +63,7 @@ module Kafka
   # partition will the messages be compressed.
   #
   # Compression is enabled by passing the `compression_codec` parameter with the
-  # name of one of the algorithms allowed by Kafka:
+  # name of one of the algorithms allowed by EbKafka:
   #
   # * `:snappy` for [Snappy](http://google.github.io/snappy/) compression.
   # * `:gzip` for [gzip](https://en.wikipedia.org/wiki/Gzip) compression.
@@ -95,18 +95,18 @@ module Kafka
   # ## Example
   #
   # This is an example of an application which reads lines from stdin and writes them
-  # to Kafka:
+  # to EbKafka:
   #
   #     require "kafka"
   #
   #     logger = Logger.new($stderr)
   #     brokers = ENV.fetch("KAFKA_BROKERS").split(",")
   #
-  #     # Make sure to create this topic in your Kafka cluster or configure the
+  #     # Make sure to create this topic in your EbKafka cluster or configure the
   #     # cluster to auto-create topics.
   #     topic = "random-messages"
   #
-  #     kafka = Kafka.new(brokers, client_id: "simple-producer", logger: logger)
+  #     kafka = EbKafka.new(brokers, client_id: "simple-producer", logger: logger)
   #     producer = kafka.producer
   #
   #     begin
@@ -213,7 +213,7 @@ module Kafka
       nil
     end
 
-    # Sends all buffered messages to the Kafka brokers.
+    # Sends all buffered messages to the EbKafka brokers.
     #
     # Depending on the value of `required_acks` used when initializing the producer,
     # this call may block until the specified number of replicas have acknowledged
@@ -356,7 +356,7 @@ module Kafka
             partition: partition,
             create_time: message.create_time,
           )
-        rescue Kafka::Error => e
+        rescue EbKafka::Error => e
           @instrumenter.instrument("topic_error.producer", {
             topic: message.topic,
             exception: [e.class.to_s, e.message],

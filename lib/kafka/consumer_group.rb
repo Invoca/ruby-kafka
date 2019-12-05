@@ -1,7 +1,7 @@
 require "set"
 require "kafka/round_robin_assignment_strategy"
 
-module Kafka
+module EbKafka
   class ConsumerGroup
     attr_reader :assigned_partitions, :generation_id
 
@@ -35,7 +35,7 @@ module Kafka
 
     def join
       if @topics.empty?
-        raise Kafka::Error, "Cannot join group without at least one topic subscription"
+        raise EbKafka::Error, "Cannot join group without at least one topic subscription"
       end
 
       join_group
@@ -86,7 +86,7 @@ module Kafka
           Protocol.handle_error(error_code)
         end
       end
-    rescue Kafka::Error => e
+    rescue EbKafka::Error => e
       @logger.error "Error committing offsets: #{e}"
       raise OffsetCommitError, e
     end

@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
     class ConsumerGroupProtocol
       def initialize(version: 0, topics:, user_data: nil)

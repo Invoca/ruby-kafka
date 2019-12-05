@@ -1,25 +1,25 @@
 begin
   require "statsd"
 rescue LoadError
-  $stderr.puts "In order to report Kafka client metrics to Statsd you need to install the `statsd-ruby` gem."
+  $stderr.puts "In order to report EbKafka client metrics to Statsd you need to install the `statsd-ruby` gem."
   raise
 end
 
 require "active_support/subscriber"
 
-module Kafka
+module EbKafka
   # Reports operational metrics to a Statsd agent.
   #
   #     require "kafka/statsd"
   #
   #     # Default is "ruby_kafka".
-  #     Kafka::Statsd.namespace = "custom-namespace"
+  #     EbKafka::Statsd.namespace = "custom-namespace"
   #
   #     # Default is "127.0.0.1".
-  #     Kafka::Statsd.host = "statsd.something.com"
+  #     EbKafka::Statsd.host = "statsd.something.com"
   #
   #     # Default is 8125.
-  #     Kafka::Statsd.port = 1234
+  #     EbKafka::Statsd.port = 1234
   #
   # Once the file has been required, no further configuration is needed – all operational
   # metrics are automatically emitted.
@@ -51,7 +51,7 @@ module Kafka
 
       %w[increment count timing gauge].each do |type|
         define_method(type) do |*args|
-          Kafka::Statsd.statsd.send(type, *args)
+          EbKafka::Statsd.statsd.send(type, *args)
         end
       end
     end
@@ -199,7 +199,7 @@ module Kafka
 
         timing("producer.#{client}.deliver.latency", event.duration)
 
-        # Messages delivered to Kafka:
+        # Messages delivered to EbKafka:
         count("producer.#{client}.deliver.messages", message_count)
 
         # Number of attempts to deliver messages:

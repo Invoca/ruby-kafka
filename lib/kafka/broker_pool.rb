@@ -1,6 +1,6 @@
 require "kafka/broker"
 
-module Kafka
+module EbKafka
   class BrokerPool
     def initialize(connection_builder:, logger:)
       @logger = logger

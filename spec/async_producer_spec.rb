@@ -15,7 +15,7 @@ class FakeInstrumenter
   end
 end
 
-describe Kafka::AsyncProducer do
+describe EbKafka::AsyncProducer do
   describe "#shutdown" do
     let(:sync_producer) { double(:sync_producer, produce: nil, shutdown: nil, deliver_messages: nil) }
     let(:log) { StringIO.new }
@@ -23,7 +23,7 @@ describe Kafka::AsyncProducer do
     let(:instrumenter) { FakeInstrumenter.new }
 
     let(:async_producer) {
-      Kafka::AsyncProducer.new(
+      EbKafka::AsyncProducer.new(
         sync_producer: sync_producer,
         instrumenter: instrumenter,
         logger: logger,
@@ -39,7 +39,7 @@ describe Kafka::AsyncProducer do
 
     it "instruments a failure to deliver buffered messages" do
       allow(sync_producer).to receive(:buffer_size) { 42 }
-      allow(sync_producer).to receive(:deliver_messages) { raise Kafka::Error, "uh-oh!" }
+      allow(sync_producer).to receive(:deliver_messages) { raise EbKafka::Error, "uh-oh!" }
 
       async_producer.produce("hello", topic: "greetings")
       async_producer.shutdown

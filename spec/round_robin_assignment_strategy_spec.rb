@@ -1,4 +1,4 @@
-describe Kafka::RoundRobinAssignmentStrategy do
+describe EbKafka::RoundRobinAssignmentStrategy do
   it "assigns all partitions" do
     cluster = double(:cluster)
     strategy = described_class.new(cluster: cluster)

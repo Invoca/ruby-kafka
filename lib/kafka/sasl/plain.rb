@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Sasl
     class Plain
       PLAIN_IDENT = "PLAIN"
@@ -25,9 +25,9 @@ module Kafka
 
         begin
           msg = decoder.bytes
-          raise Kafka::Error, "SASL PLAIN authentication failed: unknown error" unless msg
+          raise EbKafka::Error, "SASL PLAIN authentication failed: unknown error" unless msg
         rescue Errno::ETIMEDOUT, EOFError => e
-          raise Kafka::Error, "SASL PLAIN authentication failed: #{e.message}"
+          raise EbKafka::Error, "SASL PLAIN authentication failed: #{e.message}"
         end
 
         @logger.debug "SASL PLAIN authentication successful."
