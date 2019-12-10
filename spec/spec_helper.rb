@@ -1,5 +1,7 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+require "active_support"
 require "active_support/notifications"
+require "active_support/core_ext/object/try"
 require "kafka"
 require "dotenv"
 require "logger"
@@ -69,7 +71,7 @@ module FunctionalSpecHelpers
     base.class_eval do
       let(:logger) { LOGGER }
       let(:kafka_brokers) { KAFKA_BROKERS }
-      let(:kafka) { Kafka.new(kafka_brokers, client_id: "test", logger: logger) }
+      let(:kafka) { EbKafka.new(kafka_brokers, client_id: "test", logger: logger) }
 
       after { kafka.close rescue nil }
     end

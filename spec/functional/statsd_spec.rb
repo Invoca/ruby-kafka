@@ -6,7 +6,7 @@ describe "Reporting metrics to Statsd", functional: true do
   example "reporting connection metrics" do
     agent = FakeStatsdAgent.new
 
-    Kafka::Statsd.port = agent.port
+    EbKafka::Statsd.port = agent.port
 
     agent.start
 

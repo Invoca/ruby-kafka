@@ -1,4 +1,4 @@
-# Reads lines from STDIN, writing them to Kafka.
+# Reads lines from STDIN, writing them to EbKafka.
 
 $LOAD_PATH.unshift(File.expand_path("../../lib", __FILE__))
 
@@ -7,7 +7,7 @@ require "kafka"
 logger = Logger.new($stderr)
 brokers = ENV.fetch("KAFKA_BROKERS")
 
-# Make sure to create this topic in your Kafka cluster or configure the
+# Make sure to create this topic in your EbKafka cluster or configure the
 # cluster to auto-create topics.
 topic = "page-visits"
 
@@ -17,7 +17,7 @@ ssl_context.set_params(
   key: OpenSSL::PKey::RSA.new(ENV.fetch("KAFKA_CLIENT_CERT_KEY")),
 )
 
-kafka = Kafka.new(
+kafka = EbKafka.new(
   seed_brokers: brokers,
   client_id: "ssl-producer",
   logger: logger,

@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
     # A request to list the available offsets for a set of topics/partitions.
     #

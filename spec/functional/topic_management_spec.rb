@@ -11,8 +11,8 @@ describe "Topic management API", functional: true do
   end
 
   example "creating a topic with config entries" do
-    unless kafka.supports_api?(Kafka::Protocol::DESCRIBE_CONFIGS_API)
-      skip("This Kafka version not support ")
+    unless kafka.supports_api?(EbKafka::Protocol::DESCRIBE_CONFIGS_API)
+      skip("This EbKafka version not support ")
     end
 
     topic = generate_topic_name
@@ -35,8 +35,8 @@ describe "Topic management API", functional: true do
   end
 
   example "create partitions" do
-    unless kafka.supports_api?(Kafka::Protocol::CREATE_PARTITIONS_API)
-      skip("This Kafka version not support ")
+    unless kafka.supports_api?(EbKafka::Protocol::CREATE_PARTITIONS_API)
+      skip("This EbKafka version not support ")
     end
     topic = generate_topic_name
 
@@ -48,8 +48,8 @@ describe "Topic management API", functional: true do
   end
 
   example "describe a topic" do
-    unless kafka.supports_api?(Kafka::Protocol::DESCRIBE_CONFIGS_API)
-      skip("This Kafka version not support ")
+    unless kafka.supports_api?(EbKafka::Protocol::DESCRIBE_CONFIGS_API)
+      skip("This EbKafka version not support ")
     end
 
     topic = generate_topic_name

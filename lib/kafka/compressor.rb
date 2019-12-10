@@ -1,6 +1,6 @@
 require "kafka/compression"
 
-module Kafka
+module EbKafka
 
   # Compresses message sets using a specified codec.
   #

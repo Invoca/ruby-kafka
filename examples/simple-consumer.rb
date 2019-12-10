@@ -1,4 +1,4 @@
-# Consumes lines from a Kafka partition and writes them to STDOUT.
+# Consumes lines from a EbKafka partition and writes them to STDOUT.
 #
 # You need to define the environment variable KAFKA_BROKERS for this
 # to work, e.g.
@@ -16,11 +16,11 @@ logger = Logger.new(StringIO.new)
 
 brokers = ENV.fetch("KAFKA_BROKERS").split(",")
 
-# Make sure to create this topic in your Kafka cluster or configure the
+# Make sure to create this topic in your EbKafka cluster or configure the
 # cluster to auto-create topics.
 topic = "text"
 
-kafka = Kafka.new(
+kafka = EbKafka.new(
   seed_brokers: brokers,
   client_id: "simple-consumer",
   socket_timeout: 20,

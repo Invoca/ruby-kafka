@@ -1,6 +1,6 @@
 require "stringio"
 
-module Kafka
+module EbKafka
   module Protocol
 
     # A produce request sends a message set to the server.

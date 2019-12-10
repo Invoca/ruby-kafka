@@ -1,4 +1,4 @@
-# Reads lines from STDIN, writing them to Kafka.
+# Reads lines from STDIN, writing them to EbKafka.
 #
 # You need to define the environment variable KAFKA_BROKERS for this
 # to work, e.g.
@@ -13,11 +13,11 @@ require "kafka"
 logger = Logger.new($stderr)
 brokers = ENV.fetch("KAFKA_BROKERS")
 
-# Make sure to create this topic in your Kafka cluster or configure the
+# Make sure to create this topic in your EbKafka cluster or configure the
 # cluster to auto-create topics.
 topic = "text"
 
-kafka = Kafka.new(
+kafka = EbKafka.new(
   seed_brokers: brokers,
   client_id: "simple-producer",
   logger: logger,

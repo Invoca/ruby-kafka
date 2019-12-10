@@ -1,8 +1,8 @@
-module Kafka
+module EbKafka
   module Protocol
 
     # A decoder wraps an IO object, making it easy to read specific data types
-    # from it. The Kafka protocol is not self-describing, so a client must call
+    # from it. The EbKafka protocol is not self-describing, so a client must call
     # these methods in just the right order for things to work.
     class Decoder
       def self.from_string(str)

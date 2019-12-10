@@ -1,4 +1,4 @@
-describe Kafka::SocketWithTimeout, ".open" do
+describe EbKafka::SocketWithTimeout, ".open" do
   it "times out if the server doesn't accept the connection within the timeout" do
     host = "172.16.0.0" # this address is non-routable!
     port = 4444
@@ -9,7 +9,7 @@ describe Kafka::SocketWithTimeout, ".open" do
     start = Time.now
 
     expect {
-      Kafka::SocketWithTimeout.new(host, port, connect_timeout: timeout, timeout: 1)
+      EbKafka::SocketWithTimeout.new(host, port, connect_timeout: timeout, timeout: 1)
     }.to raise_exception(Errno::ETIMEDOUT)
 
     finish = Time.now
@@ -26,7 +26,7 @@ describe Kafka::SocketWithTimeout, ".open" do
       timeout = 0.1
       allowed_time = timeout + 0.1
 
-      socket = Kafka::SocketWithTimeout.new(host, port, connect_timeout: 1, timeout: timeout)
+      socket = EbKafka::SocketWithTimeout.new(host, port, connect_timeout: 1, timeout: timeout)
 
       start = Time.now
 
@@ -44,7 +44,7 @@ describe Kafka::SocketWithTimeout, ".open" do
       server = TCPServer.new(host, 0)
       port = server.addr[1]
 
-      socket = Kafka::SocketWithTimeout.new(host, port, connect_timeout: 1, timeout: 5)
+      socket = EbKafka::SocketWithTimeout.new(host, port, connect_timeout: 1, timeout: 5)
 
       thread = Thread.new do
         begin

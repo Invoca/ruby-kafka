@@ -1,6 +1,6 @@
 require "kafka/protocol/member_assignment"
 
-module Kafka
+module EbKafka
 
   # A consumer group partition assignment strategy that assigns partitions to
   # consumers in a round-robin fashion.
@@ -41,7 +41,7 @@ module Kafka
       end
 
       group_assignment
-    rescue Kafka::LeaderNotAvailable
+    rescue EbKafka::LeaderNotAvailable
       sleep 1
       retry
     end

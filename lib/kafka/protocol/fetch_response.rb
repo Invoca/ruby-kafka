@@ -1,6 +1,6 @@
 require "kafka/protocol/message_set"
 
-module Kafka
+module EbKafka
   module Protocol
 
     # A response to a fetch request.

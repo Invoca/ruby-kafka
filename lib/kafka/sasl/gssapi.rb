@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Sasl
     class Gssapi
       GSSAPI_IDENT = "GSSAPI"
@@ -30,7 +30,7 @@ module Kafka
 
         # verify incoming token
         unless @gssapi_ctx.init_context(token_to_verify)
-          raise Kafka::Error, "GSSAPI context verification failed."
+          raise EbKafka::Error, "GSSAPI context verification failed."
         end
 
         # we can continue, so send OK
@@ -42,7 +42,7 @@ module Kafka
 
       def handshake_messages
         msg = @decoder.bytes
-        raise Kafka::Error, "GSSAPI negotiation failed." unless msg
+        raise EbKafka::Error, "GSSAPI negotiation failed." unless msg
         # unwrap with integrity only
         msg_unwrapped = @gssapi_ctx.unwrap_message(msg, GSSAPI_CONFIDENTIALITY)
         msg_wrapped = @gssapi_ctx.wrap_message(msg_unwrapped + @principal, GSSAPI_CONFIDENTIALITY)

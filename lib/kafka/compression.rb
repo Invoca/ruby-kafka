@@ -2,7 +2,7 @@ require "kafka/snappy_codec"
 require "kafka/gzip_codec"
 require "kafka/lz4_codec"
 
-module Kafka
+module EbKafka
   module Compression
     CODEC_NAMES = {
       1 => :gzip,

@@ -1,5 +1,5 @@
-describe Kafka::MessageBuffer do
-  let(:buffer) { Kafka::MessageBuffer.new }
+describe EbKafka::MessageBuffer do
+  let(:buffer) { EbKafka::MessageBuffer.new }
 
   describe "#concat" do
     it "adds the messages to the buffer" do
@@ -80,7 +80,7 @@ describe Kafka::MessageBuffer do
     end
 
     it "keeps track of concatenations" do
-      message = Kafka::Protocol::Message.new(value: "baz", key: "bim")
+      message = EbKafka::Protocol::Message.new(value: "baz", key: "bim")
 
       buffer.write(value: "foo", key: "bar", topic: "yolos", partition: 1)
       buffer.concat([message], topic: "yolos", partition: 1)

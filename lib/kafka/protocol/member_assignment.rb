@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
     class MemberAssignment
       attr_reader :topics

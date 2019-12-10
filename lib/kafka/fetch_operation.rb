@@ -1,10 +1,10 @@
 require "kafka/fetched_batch"
 
-module Kafka
+module EbKafka
 
   # Fetches messages from one or more partitions.
   #
-  #     operation = Kafka::FetchOperation.new(
+  #     operation = EbKafka::FetchOperation.new(
   #       cluster: cluster,
   #       logger: logger,
   #       min_bytes: 1,
@@ -65,7 +65,7 @@ module Kafka
         resolve_offsets(broker, topics)
 
         options = {
-          max_wait_time: @max_wait_time * 1000, # Kafka expects ms, not secs
+          max_wait_time: @max_wait_time * 1000, # EbKafka expects ms, not secs
           min_bytes: @min_bytes,
           max_bytes: @max_bytes,
           topics: topics,
@@ -77,12 +77,12 @@ module Kafka
           fetched_topic.partitions.map {|fetched_partition|
             begin
               Protocol.handle_error(fetched_partition.error_code)
-            rescue Kafka::OffsetOutOfRange => e
+            rescue EbKafka::OffsetOutOfRange => e
               e.topic = fetched_topic.name
               e.partition = fetched_partition.partition
 
               raise e
-            rescue Kafka::Error => e
+            rescue EbKafka::Error => e
               topic = fetched_topic.name
               partition = fetched_partition.partition
               @logger.error "Failed to fetch from #{topic}/#{partition}: #{e.message}"
@@ -106,7 +106,7 @@ module Kafka
           }
         }
       }
-    rescue Kafka::ConnectionError, Kafka::LeaderNotAvailable, Kafka::NotLeaderForPartition
+    rescue EbKafka::ConnectionError, EbKafka::LeaderNotAvailable, EbKafka::NotLeaderForPartition
       @cluster.mark_as_stale!
 
       raise

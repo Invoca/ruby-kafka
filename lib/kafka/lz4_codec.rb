@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   class LZ4Codec
     def codec_id
       3

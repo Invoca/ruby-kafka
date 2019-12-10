@@ -1,8 +1,8 @@
 require "thread"
 
-module Kafka
+module EbKafka
 
-  # A Kafka producer that does all its work in the background so as to not block
+  # A EbKafka producer that does all its work in the background so as to not block
   # the calling thread. Calls to {#deliver_messages} are asynchronous and return
   # immediately.
   #
@@ -29,7 +29,7 @@ module Kafka
   # value by setting `max_queue_size`.
   #
   # If you produce messages faster than the background producer thread can
-  # deliver them to Kafka you will eventually fill the producer's buffer. Once
+  # deliver them to EbKafka you will eventually fill the producer's buffer. Once
   # this happens, the background thread will stop popping messages off the
   # queue until it can successfully deliver the buffered messages. The queue
   # will therefore grow in size, potentially hitting the `max_queue_size` limit.
@@ -60,7 +60,7 @@ module Kafka
 
     # Initializes a new AsyncProducer.
     #
-    # @param sync_producer [Kafka::Producer] the synchronous producer that should
+    # @param sync_producer [EbKafka::Producer] the synchronous producer that should
     #   be used in the background.
     # @param max_queue_size [Integer] the maximum number of messages allowed in
     #   the queue.
@@ -93,8 +93,8 @@ module Kafka
 
     # Produces a message to the specified topic.
     #
-    # @see Kafka::Producer#produce
-    # @param (see Kafka::Producer#produce)
+    # @see EbKafka::Producer#produce
+    # @param (see EbKafka::Producer#produce)
     # @raise [BufferOverflow] if the message queue is full.
     # @return [nil]
     def produce(value, topic:, **options)
@@ -120,7 +120,7 @@ module Kafka
     # Asynchronously delivers the buffered messages. This method will return
     # immediately and the actual work will be done in the background.
     #
-    # @see Kafka::Producer#deliver_messages
+    # @see EbKafka::Producer#deliver_messages
     # @return [nil]
     def deliver_messages
       @queue << [:deliver_messages, nil]
@@ -131,7 +131,7 @@ module Kafka
     # Shuts down the producer, releasing the network resources used. This
     # method will block until the buffered messages have been delivered.
     #
-    # @see Kafka::Producer#shutdown
+    # @see EbKafka::Producer#shutdown
     # @return [nil]
     def shutdown
       @timer_thread && @timer_thread.exit
@@ -215,14 +215,14 @@ module Kafka
             raise "Unknown operation #{operation.inspect}"
           end
         end
-      rescue Kafka::Error => e
-        @logger.error "Unexpected Kafka error #{e.class}: #{e.message}\n#{e.backtrace.join("\n")}"
+      rescue EbKafka::Error => e
+        @logger.error "Unexpected EbKafka error #{e.class}: #{e.message}\n#{e.backtrace.join("\n")}"
         @logger.info "Restarting in 10 seconds..."
 
         sleep 10
         retry
       rescue Exception => e
-        @logger.error "Unexpected Kafka error #{e.class}: #{e.message}\n#{e.backtrace.join("\n")}"
+        @logger.error "Unexpected EbKafka error #{e.class}: #{e.message}\n#{e.backtrace.join("\n")}"
         @logger.error "Async producer crashed!"
       ensure
         @producer.shutdown

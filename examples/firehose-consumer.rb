@@ -25,7 +25,7 @@ threads = NUM_THREADS.times.map do |worker_id|
       "[#{worker_id}] #{severity.ljust(5)} -- #{msg}\n"
     }
 
-    kafka = Kafka.new(
+    kafka = EbKafka.new(
       seed_brokers: KAFKA_BROKERS,
       logger: logger,
       connect_timeout: 30,

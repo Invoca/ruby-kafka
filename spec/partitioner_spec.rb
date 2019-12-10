@@ -1,5 +1,5 @@
-describe Kafka::Partitioner, "#partition_for_key" do
-  let(:partitioner) { Kafka::Partitioner }
+describe EbKafka::Partitioner, "#partition_for_key" do
+  let(:partitioner) { EbKafka::Partitioner }
   let(:message) { double(:message, key: nil, partition_key: "yolo") }
 
   it "deterministically returns a partition number for a partition key and partition count" do

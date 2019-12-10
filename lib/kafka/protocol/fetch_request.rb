@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
 
     # A request to fetch messages from a given partition.

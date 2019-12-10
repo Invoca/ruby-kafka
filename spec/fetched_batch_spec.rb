@@ -1,4 +1,4 @@
-describe Kafka::FetchedBatch do
+describe EbKafka::FetchedBatch do
   describe "#offset_lag" do
     context "empty batch" do
       it "is 0" do

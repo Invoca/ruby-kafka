@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
     class DescribeConfigsResponse
       class ResourceDescription
@@ -39,8 +39,8 @@ module Kafka
           error_message = decoder.string
 
           resource_type = decoder.int8
-          if Kafka::Protocol::RESOURCE_TYPES[resource_type].nil?
-            raise Kafka::ProtocolError, "Resource type not supported: #{resource_type}"
+          if EbKafka::Protocol::RESOURCE_TYPES[resource_type].nil?
+            raise EbKafka::ProtocolError, "Resource type not supported: #{resource_type}"
           end
           resource_name = decoder.string
 

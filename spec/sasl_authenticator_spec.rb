@@ -1,6 +1,6 @@
 require 'fake_server'
 
-describe Kafka::SaslAuthenticator do
+describe EbKafka::SaslAuthenticator do
   let(:logger) { LOGGER }
 
   let(:host) { "127.0.0.1" }
@@ -8,12 +8,12 @@ describe Kafka::SaslAuthenticator do
   let(:port) { server.addr[1] }
 
   let(:connection) {
-    Kafka::Connection.new(
+    EbKafka::Connection.new(
       host: host,
       port: port,
       client_id: "test",
       logger: logger,
-      instrumenter: Kafka::Instrumenter.new(client_id: "test"),
+      instrumenter: EbKafka::Instrumenter.new(client_id: "test"),
       connect_timeout: 0.1,
       socket_timeout: 0.1,
     )
@@ -22,7 +22,7 @@ describe Kafka::SaslAuthenticator do
   let!(:fake_server) { FakeServer.start(server) }
 
   let(:sasl_authenticator) {
-    Kafka::SaslAuthenticator.new(
+    EbKafka::SaslAuthenticator.new(
       { logger: logger }.merge(auth_options)
     )
   }
@@ -59,12 +59,12 @@ describe Kafka::SaslAuthenticator do
       sasl_authenticator.authenticate!(connection)
     end
 
-    it "raises Kafka::Error when the username or password is incorrect" do
+    it "raises EbKafka::Error when the username or password is incorrect" do
       auth_options[:sasl_plain_password] = "wrong"
 
       expect {
         sasl_authenticator.authenticate!(connection)
-      }.to raise_error(Kafka::Error, /SASL PLAIN authentication failed/)
+      }.to raise_error(EbKafka::Error, /SASL PLAIN authentication failed/)
     end
   end
 
@@ -81,12 +81,12 @@ describe Kafka::SaslAuthenticator do
       sasl_authenticator.authenticate!(connection)
     end
 
-    it "raises Kafka::Error when the username or password is incorrect" do
+    it "raises EbKafka::Error when the username or password is incorrect" do
       auth_options[:sasl_scram_password] = "wrong"
 
       expect {
         sasl_authenticator.authenticate!(connection)
-      }.to raise_error(Kafka::FailedScramAuthentication)
+      }.to raise_error(EbKafka::FailedScramAuthentication)
     end
   end
 end

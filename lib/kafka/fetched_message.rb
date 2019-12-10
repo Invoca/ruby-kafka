@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   class FetchedMessage
     # @return [String] the name of the topic that the message was written to.
     attr_reader :topic

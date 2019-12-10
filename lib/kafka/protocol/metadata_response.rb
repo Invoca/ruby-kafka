@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
 
     # A response to a {MetadataRequest}.
@@ -127,7 +127,7 @@ module Kafka
       def find_broker(node_id)
         broker = @brokers.find {|broker| broker.node_id == node_id }
 
-        raise Kafka::NoSuchBroker, "No broker with id #{node_id}" if broker.nil?
+        raise EbKafka::NoSuchBroker, "No broker with id #{node_id}" if broker.nil?
 
         broker
       end

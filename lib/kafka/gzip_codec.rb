@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   class GzipCodec
     def codec_id
       1

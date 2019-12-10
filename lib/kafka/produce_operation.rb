@@ -1,7 +1,7 @@
 require "kafka/protocol/message_set"
 
-module Kafka
-  # A produce operation attempts to send all messages in a buffer to the Kafka cluster.
+module EbKafka
+  # A produce operation attempts to send all messages in a buffer to the EbKafka cluster.
   # Since topics and partitions are spread among all brokers in a cluster, this usually
   # involves sending requests to several or all of the brokers.
   #
@@ -64,7 +64,7 @@ module Kafka
 
           messages_for_broker[broker] ||= MessageBuffer.new
           messages_for_broker[broker].concat(messages, topic: topic, partition: partition)
-        rescue Kafka::Error => e
+        rescue EbKafka::Error => e
           @logger.error "Could not connect to leader for partition #{topic}/#{partition}: #{e.message}"
 
           @instrumenter.instrument("topic_error.producer", {
@@ -95,7 +95,7 @@ module Kafka
           response = broker.produce(
             messages_for_topics: messages_for_topics,
             required_acks: @required_acks,
-            timeout: @ack_timeout * 1000, # Kafka expects the timeout in milliseconds.
+            timeout: @ack_timeout * 1000, # EbKafka expects the timeout in milliseconds.
           )
 
           handle_response(broker, response) if response
@@ -137,22 +137,22 @@ module Kafka
               delay: ack_time - message.create_time,
             })
           end
-        rescue Kafka::CorruptMessage
+        rescue EbKafka::CorruptMessage
           @logger.error "Corrupt message when writing to #{topic}/#{partition} on #{broker}"
-        rescue Kafka::UnknownTopicOrPartition
+        rescue EbKafka::UnknownTopicOrPartition
           @logger.error "Unknown topic or partition #{topic}/#{partition} on #{broker}"
           @cluster.mark_as_stale!
-        rescue Kafka::LeaderNotAvailable
+        rescue EbKafka::LeaderNotAvailable
           @logger.error "Leader currently not available for #{topic}/#{partition}"
           @cluster.mark_as_stale!
-        rescue Kafka::NotLeaderForPartition
+        rescue EbKafka::NotLeaderForPartition
           @logger.error "Broker #{broker} not currently leader for #{topic}/#{partition}"
           @cluster.mark_as_stale!
-        rescue Kafka::RequestTimedOut
+        rescue EbKafka::RequestTimedOut
           @logger.error "Timed out while writing to #{topic}/#{partition} on #{broker}"
-        rescue Kafka::NotEnoughReplicas
+        rescue EbKafka::NotEnoughReplicas
           @logger.error "Not enough in-sync replicas for #{topic}/#{partition}"
-        rescue Kafka::NotEnoughReplicasAfterAppend
+        rescue EbKafka::NotEnoughReplicasAfterAppend
           @logger.error "Messages written, but to fewer in-sync replicas than required for #{topic}/#{partition}"
         else
           @logger.debug "Successfully appended #{messages.count} messages to #{topic}/#{partition} on #{broker}"

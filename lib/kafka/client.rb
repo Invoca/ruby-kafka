@@ -12,11 +12,11 @@ require "kafka/connection_builder"
 require "kafka/instrumenter"
 require "kafka/sasl_authenticator"
 
-module Kafka
+module EbKafka
   class Client
     URI_SCHEMES = ["kafka", "kafka+ssl"]
 
-    # Initializes a new Kafka client.
+    # Initializes a new EbKafka client.
     #
     # @param seed_brokers [Array<String>, String] the list of brokers used to initialize
     #   the client. Either an Array of connections, or a comma separated string of connections.
@@ -92,7 +92,7 @@ module Kafka
       @cluster = initialize_cluster
     end
 
-    # Delivers a single message to the Kafka cluster.
+    # Delivers a single message to the EbKafka cluster.
     #
     # **Note:** Only use this API for low-throughput scenarios. If you want to deliver
     # many messages at a high rate, or if you want to configure the way messages are
@@ -160,7 +160,7 @@ module Kafka
         unless buffer.empty?
           raise DeliveryFailed.new(nil, [message])
         end
-      rescue Kafka::Error => e
+      rescue EbKafka::Error => e
         @cluster.mark_as_stale!
 
         if attempt >= (retries + 1)
@@ -176,7 +176,7 @@ module Kafka
       end
     end
 
-    # Initializes a new Kafka producer.
+    # Initializes a new EbKafka producer.
     #
     # @param ack_timeout [Integer] The number of seconds a broker can wait for
     #   replicas to acknowledge a write before responding with a timeout.
@@ -205,7 +205,7 @@ module Kafka
     #   be in a message set before it should be compressed. Note that message sets
     #   are per-partition rather than per-topic or per-producer.
     #
-    # @return [Kafka::Producer] the Kafka producer.
+    # @return [EbKafka::Producer] the EbKafka producer.
     def producer(compression_codec: nil, compression_threshold: 1, ack_timeout: 5, required_acks: :all, max_retries: 2, retry_backoff: 1, max_buffer_size: 1000, max_buffer_bytesize: 10_000_000)
       compressor = Compressor.new(
         codec_name: compression_codec,
@@ -254,11 +254,11 @@ module Kafka
       )
     end
 
-    # Creates a new Kafka consumer.
+    # Creates a new EbKafka consumer.
     #
     # @param group_id [String] the id of the group that the consumer should join.
     # @param session_timeout [Integer] the number of seconds after which, if a client
-    #   hasn't contacted the Kafka cluster, it will be kicked out of the group.
+    #   hasn't contacted the EbKafka cluster, it will be kicked out of the group.
     # @param offset_commit_interval [Integer] the interval between offset commits,
     #   in seconds.
     # @param offset_commit_threshold [Integer] the number of messages that can be
@@ -276,7 +276,7 @@ module Kafka
         group_id: group_id,
       })
 
-      # The Kafka protocol expects the retention time to be in ms.
+      # The EbKafka protocol expects the retention time to be in ms.
       retention_time = (offset_retention_time && offset_retention_time * 1_000) || -1
 
       group = ConsumerGroup.new(
@@ -324,7 +324,7 @@ module Kafka
     # * `:latest` — the next offset that will be written to, effectively making the
     #   call block until there is a new message in the partition.
     #
-    # The Kafka protocol specifies the numeric values of these two options: -2 and -1,
+    # The EbKafka protocol specifies the numeric values of these two options: -2 and -1,
     # respectively. You can also pass in these numbers directly.
     #
     # ## Example
@@ -371,7 +371,7 @@ module Kafka
     #   response message set. Default is 1 MB. You need to set this higher if you
     #   expect messages to be larger than this.
     #
-    # @return [Array<Kafka::FetchedMessage>] the messages returned from the broker.
+    # @return [Array<EbKafka::FetchedMessage>] the messages returned from the broker.
     def fetch_messages(topic:, partition:, offset: :latest, max_wait_time: 5, min_bytes: 1, max_bytes: 1048576, retries: 1)
       operation = FetchOperation.new(
         cluster: @cluster,
@@ -387,7 +387,7 @@ module Kafka
 
       begin
         operation.execute.flat_map {|batch| batch.messages }
-      rescue Kafka::Error => e
+      rescue EbKafka::Error => e
         @cluster.mark_as_stale!
 
         if attempt >= (retries + 1)
@@ -462,9 +462,9 @@ module Kafka
     # @param timeout [Integer] a duration of time to wait for the topic to be
     #   completely created.
     # @param config [Hash] topic configuration entries. See
-    #   [the Kafka documentation](https://kafka.apache.org/documentation/#topicconfigs)
+    #   [the EbKafka documentation](https://kafka.apache.org/documentation/#topicconfigs)
     #   for more information.
-    # @raise [Kafka::TopicAlreadyExists] if the topic already exists.
+    # @raise [EbKafka::TopicAlreadyExists] if the topic already exists.
     # @return [nil]
     def create_topic(name, num_partitions: 1, replication_factor: 1, timeout: 30, config: {})
       @cluster.create_topic(
@@ -488,13 +488,13 @@ module Kafka
 
     # Describe the configuration of a topic.
     #
-    # Retrieves the topic configuration from the Kafka brokers. Configuration names
-    # refer to [Kafka's topic-level configs](https://kafka.apache.org/documentation/#topicconfigs).
+    # Retrieves the topic configuration from the EbKafka brokers. Configuration names
+    # refer to [EbKafka's topic-level configs](https://kafka.apache.org/documentation/#topicconfigs).
     #
     # @note This is an alpha level API and is subject to change.
     #
     # @example Describing the cleanup policy config of a topic
-    #   kafka = Kafka.new(["kafka1:9092"])
+    #   kafka = EbKafka.new(["kafka1:9092"])
     #   kafka.describe_topic("my-topic", ["cleanup.policy"])
     #   #=> { "cleanup.policy" => "delete" }
     #
@@ -583,7 +583,7 @@ module Kafka
       @cluster.apis
     end
 
-    # Closes all connections to the Kafka brokers and frees up used resources.
+    # Closes all connections to the EbKafka brokers and frees up used resources.
     #
     # @return [nil]
     def close
@@ -616,9 +616,9 @@ module Kafka
           key: OpenSSL::PKey.read(client_cert_key)
         )
       elsif client_cert && !client_cert_key
-        raise ArgumentError, "Kafka client initialized with `ssl_client_cert` but no `ssl_client_cert_key`. Please provide both."
+        raise ArgumentError, "EbKafka client initialized with `ssl_client_cert` but no `ssl_client_cert_key`. Please provide both."
       elsif !client_cert && client_cert_key
-        raise ArgumentError, "Kafka client initialized with `ssl_client_cert_key`, but no `ssl_client_cert`. Please provide both."
+        raise ArgumentError, "EbKafka client initialized with `ssl_client_cert_key`, but no `ssl_client_cert`. Please provide both."
       end
 
       if ca_cert || ca_cert_file_path || ssl_ca_certs_from_system
@@ -646,10 +646,10 @@ module Kafka
       seed_brokers.map do |connection|
         connection = "kafka://" + connection unless connection =~ /:\/\//
         uri = URI.parse(connection)
-        uri.port ||= 9092 # Default Kafka port.
+        uri.port ||= 9092 # Default EbKafka port.
 
         unless URI_SCHEMES.include?(uri.scheme)
-          raise Kafka::Error, "invalid protocol `#{uri.scheme}` in `#{connection}`"
+          raise EbKafka::Error, "invalid protocol `#{uri.scheme}` in `#{connection}`"
         end
 
         uri

@@ -1,13 +1,13 @@
 require "kafka/protocol/consumer_group_protocol"
 
-module Kafka
+module EbKafka
   module Protocol
     class JoinGroupRequest
       PROTOCOL_TYPE = "consumer"
 
       def initialize(group_id:, session_timeout:, member_id:, topics: [])
         @group_id = group_id
-        @session_timeout = session_timeout * 1000 # Kafka wants ms.
+        @session_timeout = session_timeout * 1000 # EbKafka wants ms.
         @member_id = member_id || ""
         @protocol_type = PROTOCOL_TYPE
         @group_protocols = {

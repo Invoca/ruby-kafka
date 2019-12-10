@@ -19,7 +19,7 @@ threads = NUM_THREADS.times.map do
     logger = Logger.new($stderr)
     logger.level = Logger::INFO
 
-    kafka = Kafka.new(
+    kafka = EbKafka.new(
       seed_brokers: KAFKA_BROKERS,
       logger: logger,
       ssl_client_cert: KAFKA_CLIENT_CERT,
@@ -37,7 +37,7 @@ threads = NUM_THREADS.times.map do
       loop do
         producer.produce(rand.to_s, key: rand.to_s, topic: KAFKA_TOPIC)
       end
-    rescue Kafka::BufferOverflow
+    rescue EbKafka::BufferOverflow
       logger.error "Buffer overflow, backing off for 1s"
       sleep 1
       retry

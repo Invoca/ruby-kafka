@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
     class GroupCoordinatorRequest
       def initialize(group_id:)

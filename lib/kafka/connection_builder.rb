@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   class ConnectionBuilder
     def initialize(client_id:, logger:, instrumenter:, connect_timeout:, socket_timeout:, ssl_context:, sasl_authenticator:)
       @client_id = client_id

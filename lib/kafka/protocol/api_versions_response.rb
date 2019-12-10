@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
 
     class ApiVersionsResponse
@@ -22,7 +22,7 @@ module Kafka
         end
 
         def inspect
-          "#<Kafka api version #{to_s}>"
+          "#<EbKafka api version #{to_s}>"
         end
       end
 

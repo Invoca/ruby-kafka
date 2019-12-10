@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
     class LeaveGroupRequest
       def initialize(group_id:, member_id:)

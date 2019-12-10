@@ -1,6 +1,6 @@
-module Kafka
+module EbKafka
 
-  # An ordered sequence of messages fetched from a Kafka partition.
+  # An ordered sequence of messages fetched from a EbKafka partition.
   class FetchedBatch
     # @return [String]
     attr_reader :topic
@@ -11,7 +11,7 @@ module Kafka
     # @return [Integer] the offset of the most recent message in the partition.
     attr_reader :highwater_mark_offset
 
-    # @return [Array<Kafka::FetchedMessage>]
+    # @return [Array<EbKafka::FetchedMessage>]
     attr_reader :messages
 
     def initialize(topic:, partition:, highwater_mark_offset:, messages:)

@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
 
   class PendingMessageQueue
     attr_reader :size, :bytesize

@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
 
     # SaslHandshake Response (Version: 0) => error_code [enabled_mechanisms]

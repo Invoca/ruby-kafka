@@ -1,7 +1,7 @@
 require "kafka/datadog"
 require "fake_datadog_agent"
 
-describe Kafka::Datadog do
+describe EbKafka::Datadog do
   let(:agent) { FakeDatadogAgent.new }
 
   before do
@@ -13,10 +13,10 @@ describe Kafka::Datadog do
   end
 
   it "emits metrics to the Datadog agent" do
-    Kafka::Datadog.host = agent.host
-    Kafka::Datadog.port = agent.port
+    EbKafka::Datadog.host = agent.host
+    EbKafka::Datadog.port = agent.port
 
-    client = Kafka::Datadog.statsd
+    client = EbKafka::Datadog.statsd
 
     client.increment("greetings")
 

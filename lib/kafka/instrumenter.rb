@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   class Instrumenter
     NAMESPACE = "kafka"
 

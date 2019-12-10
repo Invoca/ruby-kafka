@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
   module Protocol
 
     # A response to a list offset request.

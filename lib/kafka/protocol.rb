@@ -1,8 +1,8 @@
-module Kafka
+module EbKafka
 
   # The protocol layer of the library.
   #
-  # The Kafka protocol (https://kafka.apache.org/protocol) defines a set of API
+  # The EbKafka protocol (https://kafka.apache.org/protocol) defines a set of API
   # requests, each with a well-known numeric API key, as well as a set of error
   # codes with specific meanings.
   #

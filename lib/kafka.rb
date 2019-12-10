@@ -1,6 +1,6 @@
 require "kafka/version"
 
-module Kafka
+module EbKafka
   class Error < StandardError
   end
 
@@ -30,7 +30,7 @@ module Kafka
   end
 
   # Subclasses of this exception class map to an error code described in the
-  # Kafka protocol specification.
+  # EbKafka protocol specification.
   #
   # See https://cwiki.apache.org/confluence/display/KAFKA/A+Guide+To+The+Kafka+Protocol
   class ProtocolError < Error
@@ -239,7 +239,7 @@ module Kafka
   class FailedScramAuthentication < SaslScramError
   end
 
-  # Initializes a new Kafka client.
+  # Initializes a new EbKafka client.
   #
   # @see Client#initialize
   # @return [Client]

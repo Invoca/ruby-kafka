@@ -1,4 +1,4 @@
-module Kafka
+module EbKafka
 
   # Manages a consumer's position in partitions, figures out where to resume processing
   # from, etc.
@@ -39,7 +39,7 @@ module Kafka
 
     # Mark a message as having been processed.
     #
-    # When offsets are committed, the message's offset will be stored in Kafka so
+    # When offsets are committed, the message's offset will be stored in EbKafka so
     # that we can resume from this point at a later time.
     #
     # @param topic [String] the name of the topic.

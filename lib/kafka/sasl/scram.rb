@@ -1,7 +1,7 @@
 require 'securerandom'
 require 'base64'
 
-module Kafka
+module EbKafka
   module Sasl
     class Scram
       MECHANISMS = {
@@ -16,7 +16,7 @@ module Kafka
 
         if mechanism
           @mechanism = MECHANISMS.fetch(mechanism) do
-            raise Kafka::SaslScramError, "SCRAM mechanism #{mechanism} is not supported."
+            raise EbKafka::SaslScramError, "SCRAM mechanism #{mechanism} is not supported."
           end
         end
       end
