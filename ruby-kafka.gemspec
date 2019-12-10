@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'kafka/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "ruby-kafka"
+  spec.name          = "eb-ruby-kafka"
   spec.version       = EbKafka::VERSION
   spec.authors       = ["Daniel Schierbeck"]
   spec.email         = ["daniel.schierbeck@gmail.com"]
