@@ -371,7 +371,7 @@ module EbKafka
     #   response message set. Default is 1 MB. You need to set this higher if you
     #   expect messages to be larger than this.
     #
-    # @return [Array <EbKafka::FetchedMessage>] the messages returned from the broker.
+    # @return [Array<EbKafka::FetchedMessage>] the messages returned from the broker.
     def fetch_messages(topic:, partition:, offset: :latest, max_wait_time: 5, min_bytes: 1, max_bytes: 1048576, retries: 1)
       operation = FetchOperation.new(
         cluster: @cluster,
@@ -464,7 +464,7 @@ module EbKafka
     # @param config [Hash] topic configuration entries. See
     #   [the EbKafka documentation](https://kafka.apache.org/documentation/#topicconfigs)
     #   for more information.
-    # @raise  [EbKafka::TopicAlreadyExists] if the topic already exists.
+    # @raise [EbKafka::TopicAlreadyExists] if the topic already exists.
     # @return [nil]
     def create_topic(name, num_partitions: 1, replication_factor: 1, timeout: 30, config: {})
       @cluster.create_topic(
@@ -489,7 +489,7 @@ module EbKafka
     # Describe the configuration of a topic.
     #
     # Retrieves the topic configuration from the EbKafka brokers. Configuration names
-    # refer to  [EbKafka's topic-level configs](https://kafka.apache.org/documentation/#topicconfigs).
+    # refer to [EbKafka's topic-level configs](https://kafka.apache.org/documentation/#topicconfigs).
     #
     # @note This is an alpha level API and is subject to change.
     #
@@ -616,9 +616,9 @@ module EbKafka
           key: OpenSSL::PKey.read(client_cert_key)
         )
       elsif client_cert && !client_cert_key
-        raise ArgumentError,  "EbKafka client initialized with `ssl_client_cert` but no `ssl_client_cert_key`. Please provide both."
+        raise ArgumentError, "EbKafka client initialized with `ssl_client_cert` but no `ssl_client_cert_key`. Please provide both."
       elsif !client_cert && client_cert_key
-        raise ArgumentError,  "EbKafka client initialized with `ssl_client_cert_key`, but no `ssl_client_cert`. Please provide both."
+        raise ArgumentError, "EbKafka client initialized with `ssl_client_cert_key`, but no `ssl_client_cert`. Please provide both."
       end
 
       if ca_cert || ca_cert_file_path || ssl_ca_certs_from_system

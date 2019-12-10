@@ -10,7 +10,7 @@ module EbKafka
 
   # Allows sending messages to a EbKafka cluster.
   #
-  # Typically you won't instantiate this class yourself, but rather have  {EbKafka::Client}
+  # Typically you won't instantiate this class yourself, but rather have {EbKafka::Client}
   # do it for you, e.g.
   #
   #     # Will instantiate EbKafka::Client

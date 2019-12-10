@@ -187,7 +187,7 @@ module EbKafka
     #   mark a message as successfully processed when the block returns
     #   without an exception. Once marked successful, the offsets of processed
     #   messages can be committed to EbKafka.
-    # @yieldparam message  [EbKafka::FetchedMessage] a message fetched from EbKafka.
+    # @yieldparam message [EbKafka::FetchedMessage] a message fetched from EbKafka.
     # @raise [EbKafka::ProcessingError] if there was an error processing a message.
     #   The original exception will be returned by calling `#cause` on the
     #   {EbKafka::ProcessingError} instance.
