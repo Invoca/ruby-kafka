@@ -14,7 +14,7 @@ module EbKafka
     # to the same partition.
     #
     # @param partition_count [Integer] the number of partitions in the topic.
-    # @param message  [EbKafka::PendingMessage] the message that should be assigned
+    # @param message [EbKafka::PendingMessage] the message that should be assigned
     #   a partition.
     # @return [Integer] the partition number.
     def self.partition_for_key(partition_count, message)

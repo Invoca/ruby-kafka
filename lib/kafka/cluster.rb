@@ -14,7 +14,7 @@ module EbKafka
     # The cluster will try to fetch cluster metadata from one of the brokers.
     #
     # @param seed_brokers [Array<URI>]
-    # @param broker_pool  [EbKafka::BrokerPool]
+    # @param broker_pool [EbKafka::BrokerPool]
     # @param logger [Logger]
     def initialize(seed_brokers:, broker_pool:, logger:)
       if seed_brokers.empty?
@@ -213,7 +213,7 @@ module EbKafka
 
     def describe_topic(name, configs = [])
       options = {
-        resources: [ [EbKafka::Protocol::RESOURCE_TYPE_TOPIC, name, configs]]
+        resources: [[EbKafka::Protocol::RESOURCE_TYPE_TOPIC, name, configs]]
       }
       broker = controller_broker
 

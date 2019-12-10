@@ -205,7 +205,7 @@ module EbKafka
     #   be in a message set before it should be compressed. Note that message sets
     #   are per-partition rather than per-topic or per-producer.
     #
-    # @return  [EbKafka::Producer] the EbKafka producer.
+    # @return [EbKafka::Producer] the EbKafka producer.
     def producer(compression_codec: nil, compression_threshold: 1, ack_timeout: 5, required_acks: :all, max_retries: 2, retry_backoff: 1, max_buffer_size: 1000, max_buffer_bytesize: 10_000_000)
       compressor = Compressor.new(
         codec_name: compression_codec,

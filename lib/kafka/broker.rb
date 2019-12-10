@@ -35,7 +35,7 @@ module EbKafka
     # Fetches cluster metadata from the broker.
     #
     # @param (see EbKafka::Protocol::MetadataRequest#initialize)
-    # @return  [EbKafka::Protocol::MetadataResponse]
+    # @return [EbKafka::Protocol::MetadataResponse]
     def fetch_metadata(**options)
       request = Protocol::MetadataRequest.new(**options)
 
@@ -45,7 +45,7 @@ module EbKafka
     # Fetches messages from a specified topic and partition.
     #
     # @param (see EbKafka::Protocol::FetchRequest#initialize)
-    # @return  [EbKafka::Protocol::FetchResponse]
+    # @return [EbKafka::Protocol::FetchResponse]
     def fetch_messages(**options)
       request = Protocol::FetchRequest.new(**options)
 
@@ -55,7 +55,7 @@ module EbKafka
     # Lists the offset of the specified topics and partitions.
     #
     # @param (see EbKafka::Protocol::ListOffsetRequest#initialize)
-    # @return  [EbKafka::Protocol::ListOffsetResponse]
+    # @return [EbKafka::Protocol::ListOffsetResponse]
     def list_offsets(**options)
       request = Protocol::ListOffsetRequest.new(**options)
 
@@ -65,7 +65,7 @@ module EbKafka
     # Produces a set of messages to the broker.
     #
     # @param (see EbKafka::Protocol::ProduceRequest#initialize)
-    # @return  [EbKafka::Protocol::ProduceResponse]
+    # @return [EbKafka::Protocol::ProduceResponse]
     def produce(**options)
       request = Protocol::ProduceRequest.new(**options)
 

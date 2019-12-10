@@ -55,7 +55,7 @@ describe "Producer API", functional: true do
         kafka.deliver_message("yolo", topic: topic, key: "xoxo", partition: 0)
       end
     }.to raise_exception(EbKafka::DeliveryFailed) {|exception|
-      expect(exception.failed_messages).to eq  [EbKafka::PendingMessage.new("yolo", "xoxo", topic, 0, nil, now)]
+      expect(exception.failed_messages).to eq [EbKafka::PendingMessage.new("yolo", "xoxo", topic, 0, nil, now)]
     }
   end
 

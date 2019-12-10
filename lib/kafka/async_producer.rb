@@ -60,7 +60,7 @@ module EbKafka
 
     # Initializes a new AsyncProducer.
     #
-    # @param sync_producer  [EbKafka::Producer] the synchronous producer that should
+    # @param sync_producer [EbKafka::Producer] the synchronous producer that should
     #   be used in the background.
     # @param max_queue_size [Integer] the maximum number of messages allowed in
     #   the queue.

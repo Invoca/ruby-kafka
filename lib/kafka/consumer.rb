@@ -188,9 +188,9 @@ module EbKafka
     #   without an exception. Once marked successful, the offsets of processed
     #   messages can be committed to EbKafka.
     # @yieldparam message  [EbKafka::FetchedMessage] a message fetched from EbKafka.
-    # @raise  [EbKafka::ProcessingError] if there was an error processing a message.
+    # @raise [EbKafka::ProcessingError] if there was an error processing a message.
     #   The original exception will be returned by calling `#cause` on the
-    #    {EbKafka::ProcessingError} instance.
+    #   {EbKafka::ProcessingError} instance.
     # @return [nil]
     def each_message(min_bytes: 1, max_bytes: 10485760, max_wait_time: 1, automatically_mark_as_processed: true)
       consumer_loop do
@@ -278,7 +278,7 @@ module EbKafka
     #   mark a batch's messages as successfully processed when the block returns
     #   without an exception. Once marked successful, the offsets of processed
     #   messages can be committed to EbKafka.
-    # @yieldparam batch  [EbKafka::FetchedBatch] a message batch fetched from EbKafka.
+    # @yieldparam batch [EbKafka::FetchedBatch] a message batch fetched from EbKafka.
     # @return [nil]
     def each_batch(min_bytes: 1, max_bytes: 10485760, max_wait_time: 1, automatically_mark_as_processed: true)
       consumer_loop do

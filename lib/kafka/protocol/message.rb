@@ -49,7 +49,7 @@ module EbKafka
         @codec_id != 0
       end
 
-      # @return [Array <EbKafka::Protocol::Message>]
+      # @return [Array<EbKafka::Protocol::Message>]
       def decompress
         codec = Compression.find_codec_by_id(@codec_id)
 

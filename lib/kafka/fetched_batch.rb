@@ -11,7 +11,7 @@ module EbKafka
     # @return [Integer] the offset of the most recent message in the partition.
     attr_reader :highwater_mark_offset
 
-    # @return [Array <EbKafka::FetchedMessage>]
+    # @return [Array<EbKafka::FetchedMessage>]
     attr_reader :messages
 
     def initialize(topic:, partition:, highwater_mark_offset:, messages:)

@@ -137,7 +137,7 @@ describe EbKafka::Producer do
       producer.produce("hello1", topic: "greetings", partition: 0)
 
       expect { producer.deliver_messages }.to raise_error(EbKafka::DeliveryFailed) {|exception|
-        expect(exception.failed_messages).to eq  [EbKafka::PendingMessage.new("hello1", nil, "greetings", 0, nil, now)]
+        expect(exception.failed_messages).to eq [EbKafka::PendingMessage.new("hello1", nil, "greetings", 0, nil, now)]
       }
 
       # The producer was not able to write the message, but it's still buffered.
@@ -176,7 +176,7 @@ describe EbKafka::Producer do
       producer.produce("hello1", topic: "greetings", partition: 0)
 
       expect { producer.deliver_messages }.to raise_error(EbKafka::DeliveryFailed) {|exception|
-        expect(exception.failed_messages).to eq  [EbKafka::PendingMessage.new("hello1", nil, "greetings", 0, nil, now)]
+        expect(exception.failed_messages).to eq [EbKafka::PendingMessage.new("hello1", nil, "greetings", 0, nil, now)]
       }
 
       # The producer was not able to write the message, but it's still buffered.
@@ -196,7 +196,7 @@ describe EbKafka::Producer do
       producer.produce("hello1", topic: "greetings", partition: 0)
 
       expect { producer.deliver_messages }.to raise_error(EbKafka::DeliveryFailed) {|exception|
-        expect(exception.failed_messages).to eq  [EbKafka::PendingMessage.new("hello1", nil, "greetings", 0, nil, now)]
+        expect(exception.failed_messages).to eq [EbKafka::PendingMessage.new("hello1", nil, "greetings", 0, nil, now)]
       }
 
       # The producer was not able to write the message, but it's still buffered.
@@ -240,7 +240,7 @@ describe EbKafka::Producer do
       event = events.last
 
       expect(event.payload[:topic]).to eq "greetings"
-      expect(event.payload[:exception]).to eq [ "EbKafka::UnknownTopicOrPartition", "hello"]
+      expect(event.payload[:exception]).to eq ["EbKafka::UnknownTopicOrPartition", "hello"]
     end
 
     it "sends a notification when there's an error writing messages to a partition" do
@@ -264,7 +264,7 @@ describe EbKafka::Producer do
       event = events.last
 
       expect(event.payload[:topic]).to eq "greetings"
-      expect(event.payload[:exception]).to eq [ "EbKafka::UnknownTopicOrPartition",  "EbKafka::UnknownTopicOrPartition"]
+      expect(event.payload[:exception]).to eq ["EbKafka::UnknownTopicOrPartition",  "EbKafka::UnknownTopicOrPartition"]
     end
   end
 

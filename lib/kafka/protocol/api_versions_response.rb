@@ -22,7 +22,7 @@ module EbKafka
         end
 
         def inspect
-          "# <EbKafka api version #{to_s}>"
+          "#<EbKafka api version #{to_s}>"
         end
       end
 
