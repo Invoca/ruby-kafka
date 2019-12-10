@@ -33,7 +33,7 @@ module EbKafka
       end
 
       def host
-        @host ||= ::Datadog::Statsd::DEFAULT_HOST
+        @host ||= ::Datadog::Statsd::Connection::DEFAULT_HOST
       end
 
       def host=(host)
@@ -42,7 +42,7 @@ module EbKafka
       end
 
       def port
-        @port ||= ::Datadog::Statsd::DEFAULT_PORT
+        @port ||= ::Datadog::Statsd::Connection::DEFAULT_PORT
       end
 
       def port=(port)
