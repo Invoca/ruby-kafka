@@ -1,6 +1,6 @@
 module EbKafka
   class Instrumenter
-    NAMESPACE = "eb-kafka"
+    NAMESPACE = "kafka"
 
     def initialize(default_payload = {})
       @default_payload = default_payload

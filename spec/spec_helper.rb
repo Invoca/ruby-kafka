@@ -14,7 +14,7 @@ Dotenv.load
 LOGGER = Logger.new(ENV.key?("LOG_TO_STDERR") ? $stderr : "test-#{Time.now.to_i}.log")
 LOGGER.level = Logger.const_get(ENV.fetch("LOG_LEVEL", "INFO"))
 
-KAFKA_BROKERS = ENV.fetch("eb-kafka_BROKERS", "localhost:9092").split(",")
+KAFKA_BROKERS = ENV.fetch("KAFKA_BROKERS", "localhost:9092").split(",")
 
 # A unique id for the test run, used to namespace global resources.
 RUN_ID = SecureRandom.hex(8)

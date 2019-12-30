@@ -14,7 +14,7 @@ require "eb-kafka"
 # with e.g. `$stderr` if you want to see what's happening under the hood.
 logger = Logger.new(StringIO.new)
 
-brokers = ENV.fetch("eb-kafka_BROKERS").split(",")
+brokers = ENV.fetch("KAFKA_BROKERS").split(",")
 
 # Make sure to create this topic in your EbKafka cluster or configure the
 # cluster to auto-create topics.

@@ -20,7 +20,7 @@ module EbKafka
   #
   #     require "eb-kafka"
   #
-  #     kafka = EbKafka.new(["eb-kafka1:9092", "eb-kafka2:9092"])
+  #     kafka = EbKafka.new(["kafka1:9092", "kafka2:9092"])
   #
   #     # Create a new Consumer instance in the group `my-group`:
   #     consumer = kafka.consumer(group_id: "my-group")

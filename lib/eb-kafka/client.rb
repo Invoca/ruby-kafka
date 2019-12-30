@@ -14,7 +14,7 @@ require "eb-kafka/sasl_authenticator"
 
 module EbKafka
   class Client
-    URI_SCHEMES = ["eb-kafka", "eb-kafka+ssl"]
+    URI_SCHEMES = ["kafka", "kafka+ssl"]
 
     # Initializes a new EbKafka client.
     #
@@ -494,7 +494,7 @@ module EbKafka
     # @note This is an alpha level API and is subject to change.
     #
     # @example Describing the cleanup policy config of a topic
-    #   kafka = EbKafka.new(["eb-kafka1:9092"])
+    #   kafka = EbKafka.new(["kafka1:9092"])
     #   kafka.describe_topic("my-topic", ["cleanup.policy"])
     #   #=> { "cleanup.policy" => "delete" }
     #
@@ -644,7 +644,7 @@ module EbKafka
       end
 
       seed_brokers.map do |connection|
-        connection = "eb-kafka://" + connection unless connection =~ /:\/\//
+        connection = "kafka://" + connection unless connection =~ /:\/\//
         uri = URI.parse(connection)
         uri.port ||= 9092 # Default EbKafka port.
 

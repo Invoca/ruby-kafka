@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(File.expand_path("../../lib", __FILE__))
 require "eb-kafka"
 
 logger = Logger.new(STDOUT)
-brokers = ENV.fetch("eb-kafka_BROKERS", "localhost:9092").split(",")
+brokers = ENV.fetch("KAFKA_BROKERS", "localhost:9092").split(",")
 
 # Make sure to create this topic in your EbKafka cluster or configure the
 # cluster to auto-create topics.

@@ -1,11 +1,11 @@
 describe EbKafka::Client do
   it "accepts valid seed brokers URIs" do
     expect {
-      EbKafka::Client.new(seed_brokers: ["eb-kafka://kafka"])
+      EbKafka::Client.new(seed_brokers: ["kafka://kafka"])
     }.not_to raise_exception
 
     expect {
-      EbKafka::Client.new(seed_brokers: ["eb-kafka+ssl://kafka"])
+      EbKafka::Client.new(seed_brokers: ["kafka+ssl://kafka"])
     }.not_to raise_exception
 
     expect {

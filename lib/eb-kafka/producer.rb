@@ -14,7 +14,7 @@ module EbKafka
   # do it for you, e.g.
   #
   #     # Will instantiate EbKafka::Client
-  #     kafka = EbKafka.new(["eb-kafka1:9092", "eb-kafka2:9092"])
+  #     kafka = EbKafka.new(["kafka1:9092", "kafka2:9092"])
   #
   #     # Will instantiate EbKafka::Producer
   #     producer = kafka.producer
@@ -100,7 +100,7 @@ module EbKafka
   #     require "eb-kafka"
   #
   #     logger = Logger.new($stderr)
-  #     brokers = ENV.fetch("eb-kafka_BROKERS").split(",")
+  #     brokers = ENV.fetch("KAFKA_BROKERS").split(",")
   #
   #     # Make sure to create this topic in your EbKafka cluster or configure the
   #     # cluster to auto-create topics.
