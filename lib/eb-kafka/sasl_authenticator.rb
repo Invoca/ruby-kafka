@@ -1,6 +1,6 @@
-require 'kafka/sasl/plain'
-require 'kafka/sasl/gssapi'
-require 'kafka/sasl/scram'
+require 'eb-kafka/sasl/plain'
+require 'eb-kafka/sasl/gssapi'
+require 'eb-kafka/sasl/scram'
 
 module EbKafka
   class SaslAuthenticator

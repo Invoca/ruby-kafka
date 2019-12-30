@@ -8,13 +8,13 @@
 
 $LOAD_PATH.unshift(File.expand_path("../../lib", __FILE__))
 
-require "kafka"
+require "eb-kafka"
 
 # We don't want log output to clutter the console. Replace `StringIO.new`
 # with e.g. `$stderr` if you want to see what's happening under the hood.
 logger = Logger.new(StringIO.new)
 
-brokers = ENV.fetch("KAFKA_BROKERS").split(",")
+brokers = ENV.fetch("eb-kafka_BROKERS").split(",")
 
 # Make sure to create this topic in your EbKafka cluster or configure the
 # cluster to auto-create topics.

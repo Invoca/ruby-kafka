@@ -1,10 +1,10 @@
 require "set"
-require "kafka/partitioner"
-require "kafka/message_buffer"
-require "kafka/produce_operation"
-require "kafka/pending_message_queue"
-require "kafka/pending_message"
-require "kafka/compressor"
+require "eb-kafka/partitioner"
+require "eb-kafka/message_buffer"
+require "eb-kafka/produce_operation"
+require "eb-kafka/pending_message_queue"
+require "eb-kafka/pending_message"
+require "eb-kafka/compressor"
 
 module EbKafka
 
@@ -14,7 +14,7 @@ module EbKafka
   # do it for you, e.g.
   #
   #     # Will instantiate EbKafka::Client
-  #     kafka = EbKafka.new(["kafka1:9092", "kafka2:9092"])
+  #     kafka = EbKafka.new(["eb-kafka1:9092", "eb-kafka2:9092"])
   #
   #     # Will instantiate EbKafka::Producer
   #     producer = kafka.producer
@@ -97,10 +97,10 @@ module EbKafka
   # This is an example of an application which reads lines from stdin and writes them
   # to EbKafka:
   #
-  #     require "kafka"
+  #     require "eb-kafka"
   #
   #     logger = Logger.new($stderr)
-  #     brokers = ENV.fetch("KAFKA_BROKERS").split(",")
+  #     brokers = ENV.fetch("eb-kafka_BROKERS").split(",")
   #
   #     # Make sure to create this topic in your EbKafka cluster or configure the
   #     # cluster to auto-create topics.

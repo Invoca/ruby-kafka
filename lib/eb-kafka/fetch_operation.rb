@@ -1,4 +1,4 @@
-require "kafka/fetched_batch"
+require "eb-kafka/fetched_batch"
 
 module EbKafka
 

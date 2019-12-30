@@ -1,20 +1,20 @@
 require "openssl"
 require "uri"
 
-require "kafka/cluster"
-require "kafka/producer"
-require "kafka/consumer"
-require "kafka/heartbeat"
-require "kafka/async_producer"
-require "kafka/fetched_message"
-require "kafka/fetch_operation"
-require "kafka/connection_builder"
-require "kafka/instrumenter"
-require "kafka/sasl_authenticator"
+require "eb-kafka/cluster"
+require "eb-kafka/producer"
+require "eb-kafka/consumer"
+require "eb-kafka/heartbeat"
+require "eb-kafka/async_producer"
+require "eb-kafka/fetched_message"
+require "eb-kafka/fetch_operation"
+require "eb-kafka/connection_builder"
+require "eb-kafka/instrumenter"
+require "eb-kafka/sasl_authenticator"
 
 module EbKafka
   class Client
-    URI_SCHEMES = ["kafka", "kafka+ssl"]
+    URI_SCHEMES = ["eb-kafka", "eb-kafka+ssl"]
 
     # Initializes a new EbKafka client.
     #
@@ -494,7 +494,7 @@ module EbKafka
     # @note This is an alpha level API and is subject to change.
     #
     # @example Describing the cleanup policy config of a topic
-    #   kafka = EbKafka.new(["kafka1:9092"])
+    #   kafka = EbKafka.new(["eb-kafka1:9092"])
     #   kafka.describe_topic("my-topic", ["cleanup.policy"])
     #   #=> { "cleanup.policy" => "delete" }
     #
@@ -644,7 +644,7 @@ module EbKafka
       end
 
       seed_brokers.map do |connection|
-        connection = "kafka://" + connection unless connection =~ /:\/\//
+        connection = "eb-kafka://" + connection unless connection =~ /:\/\//
         uri = URI.parse(connection)
         uri.port ||= 9092 # Default EbKafka port.
 

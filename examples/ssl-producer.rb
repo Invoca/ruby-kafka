@@ -2,10 +2,10 @@
 
 $LOAD_PATH.unshift(File.expand_path("../../lib", __FILE__))
 
-require "kafka"
+require "eb-kafka"
 
 logger = Logger.new($stderr)
-brokers = ENV.fetch("KAFKA_BROKERS")
+brokers = ENV.fetch("eb-kafka_BROKERS")
 
 # Make sure to create this topic in your EbKafka cluster or configure the
 # cluster to auto-create topics.
@@ -13,8 +13,8 @@ topic = "page-visits"
 
 ssl_context = OpenSSL::SSL::SSLContext.new
 ssl_context.set_params(
-  cert: OpenSSL::X509::Certificate.new(ENV.fetch("KAFKA_CLIENT_CERT")),
-  key: OpenSSL::PKey::RSA.new(ENV.fetch("KAFKA_CLIENT_CERT_KEY")),
+  cert: OpenSSL::X509::Certificate.new(ENV.fetch("eb-kafka_CLIENT_CERT")),
+  key: OpenSSL::PKey::RSA.new(ENV.fetch("eb-kafka_CLIENT_CERT_KEY")),
 )
 
 kafka = EbKafka.new(

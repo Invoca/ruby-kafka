@@ -1,6 +1,6 @@
-require "kafka/snappy_codec"
-require "kafka/gzip_codec"
-require "kafka/lz4_codec"
+require "eb-kafka/snappy_codec"
+require "eb-kafka/gzip_codec"
+require "eb-kafka/lz4_codec"
 
 module EbKafka
   module Compression

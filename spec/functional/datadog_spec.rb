@@ -1,4 +1,4 @@
-require "kafka/datadog"
+require "eb-kafka/datadog"
 require "socket"
 require "fake_datadog_agent"
 

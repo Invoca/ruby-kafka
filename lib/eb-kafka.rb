@@ -1,4 +1,4 @@
-require "kafka/version"
+require "eb-kafka/version"
 
 module EbKafka
   class Error < StandardError
@@ -254,4 +254,4 @@ module EbKafka
   end
 end
 
-require "kafka/client"
+require "eb-kafka/client"

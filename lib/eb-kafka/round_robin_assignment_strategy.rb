@@ -1,4 +1,4 @@
-require "kafka/protocol/member_assignment"
+require "eb-kafka/protocol/member_assignment"
 
 module EbKafka
 

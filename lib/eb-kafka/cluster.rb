@@ -1,4 +1,4 @@
-require "kafka/broker_pool"
+require "eb-kafka/broker_pool"
 require "set"
 
 module EbKafka

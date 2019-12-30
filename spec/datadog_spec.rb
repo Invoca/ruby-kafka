@@ -1,4 +1,4 @@
-require "kafka/datadog"
+require "eb-kafka/datadog"
 require "fake_datadog_agent"
 
 describe EbKafka::Datadog do

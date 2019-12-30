@@ -5,7 +5,7 @@ describe EbKafka::Cluster do
 
     let(:cluster) {
       EbKafka::Cluster.new(
-        seed_brokers: [URI("kafka://test1:9092")],
+        seed_brokers: [URI("eb-kafka://test1:9092")],
         broker_pool: broker_pool,
         logger: LOGGER,
       )
@@ -75,7 +75,7 @@ describe EbKafka::Cluster do
 
     it "raises ConnectionError if unable to connect to any of the seed brokers" do
       cluster = EbKafka::Cluster.new(
-        seed_brokers: [URI("kafka://not-there:9092"), URI("kafka://not-here:9092")],
+        seed_brokers: [URI("eb-kafka://not-there:9092"), URI("eb-kafka://not-here:9092")],
         broker_pool: broker_pool,
         logger: LOGGER,
       )
