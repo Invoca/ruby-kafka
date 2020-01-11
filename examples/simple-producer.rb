@@ -8,7 +8,7 @@
 
 $LOAD_PATH.unshift(File.expand_path("../../lib", __FILE__))
 
-require "kafka"
+require "eb-kafka"
 
 logger = Logger.new($stderr)
 brokers = ENV.fetch("KAFKA_BROKERS")

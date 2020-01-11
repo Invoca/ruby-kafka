@@ -1,10 +1,10 @@
 require "set"
-require "kafka/partitioner"
-require "kafka/message_buffer"
-require "kafka/produce_operation"
-require "kafka/pending_message_queue"
-require "kafka/pending_message"
-require "kafka/compressor"
+require "eb-kafka/partitioner"
+require "eb-kafka/message_buffer"
+require "eb-kafka/produce_operation"
+require "eb-kafka/pending_message_queue"
+require "eb-kafka/pending_message"
+require "eb-kafka/compressor"
 
 module EbKafka
 
@@ -97,7 +97,7 @@ module EbKafka
   # This is an example of an application which reads lines from stdin and writes them
   # to EbKafka:
   #
-  #     require "kafka"
+  #     require "eb-kafka"
   #
   #     logger = Logger.new($stderr)
   #     brokers = ENV.fetch("KAFKA_BROKERS").split(",")

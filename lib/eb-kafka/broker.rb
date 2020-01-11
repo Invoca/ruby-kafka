@@ -1,6 +1,6 @@
 require "logger"
-require "kafka/connection"
-require "kafka/protocol"
+require "eb-kafka/connection"
+require "eb-kafka/protocol"
 
 module EbKafka
   class Broker

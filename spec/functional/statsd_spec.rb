@@ -1,4 +1,4 @@
-require "kafka/statsd"
+require "eb-kafka/statsd"
 require "socket"
 require "fake_statsd_agent"
 

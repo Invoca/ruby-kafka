@@ -1,4 +1,4 @@
-require "kafka/compression"
+require "eb-kafka/compression"
 
 module EbKafka
 

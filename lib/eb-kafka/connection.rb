@@ -1,9 +1,9 @@
 require "stringio"
-require "kafka/socket_with_timeout"
-require "kafka/ssl_socket_with_timeout"
-require "kafka/protocol/request_message"
-require "kafka/protocol/encoder"
-require "kafka/protocol/decoder"
+require "eb-kafka/socket_with_timeout"
+require "eb-kafka/ssl_socket_with_timeout"
+require "eb-kafka/protocol/request_message"
+require "eb-kafka/protocol/encoder"
+require "eb-kafka/protocol/decoder"
 
 module EbKafka
 

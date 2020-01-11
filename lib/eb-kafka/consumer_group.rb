@@ -1,5 +1,5 @@
 require "set"
-require "kafka/round_robin_assignment_strategy"
+require "eb-kafka/round_robin_assignment_strategy"
 
 module EbKafka
   class ConsumerGroup

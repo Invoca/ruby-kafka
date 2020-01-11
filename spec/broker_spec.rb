@@ -1,4 +1,4 @@
-require "kafka/protocol/message"
+require "eb-kafka/protocol/message"
 
 describe EbKafka::Broker do
   let(:logger) { LOGGER }

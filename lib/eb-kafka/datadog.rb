@@ -11,7 +11,7 @@ module EbKafka
 
   # Reports operational metrics to a Datadog agent using the modified Statsd protocol.
   #
-  #     require "kafka/datadog"
+  #     require "eb-kafka/datadog"
   #
   #     # Default is "ruby_kafka".
   #     EbKafka::Datadog.namespace = "custom-namespace"

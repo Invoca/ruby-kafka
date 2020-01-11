@@ -1,4 +1,4 @@
-require "kafka/protocol/message_set"
+require "eb-kafka/protocol/message_set"
 
 module EbKafka
   # A produce operation attempts to send all messages in a buffer to the EbKafka cluster.

@@ -1,6 +1,6 @@
-require "kafka/consumer_group"
-require "kafka/offset_manager"
-require "kafka/fetch_operation"
+require "eb-kafka/consumer_group"
+require "eb-kafka/offset_manager"
+require "eb-kafka/fetch_operation"
 
 module EbKafka
 
@@ -18,7 +18,7 @@ module EbKafka
   # A simple producer that simply writes the messages it consumes to the
   # console.
   #
-  #     require "kafka"
+  #     require "eb-kafka"
   #
   #     kafka = EbKafka.new(["kafka1:9092", "kafka2:9092"])
   #

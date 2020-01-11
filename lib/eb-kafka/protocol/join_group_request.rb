@@ -1,4 +1,4 @@
-require "kafka/protocol/consumer_group_protocol"
+require "eb-kafka/protocol/consumer_group_protocol"
 
 module EbKafka
   module Protocol

@@ -2,7 +2,7 @@ $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "active_support"
 require "active_support/notifications"
 require "active_support/core_ext/object/try"
-require "kafka"
+require "eb-kafka"
 require "dotenv"
 require "logger"
 require "rspec-benchmark"

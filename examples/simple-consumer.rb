@@ -8,7 +8,7 @@
 
 $LOAD_PATH.unshift(File.expand_path("../../lib", __FILE__))
 
-require "kafka"
+require "eb-kafka"
 
 # We don't want log output to clutter the console. Replace `StringIO.new`
 # with e.g. `$stderr` if you want to see what's happening under the hood.

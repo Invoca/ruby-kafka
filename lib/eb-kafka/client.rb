@@ -1,16 +1,16 @@
 require "openssl"
 require "uri"
 
-require "kafka/cluster"
-require "kafka/producer"
-require "kafka/consumer"
-require "kafka/heartbeat"
-require "kafka/async_producer"
-require "kafka/fetched_message"
-require "kafka/fetch_operation"
-require "kafka/connection_builder"
-require "kafka/instrumenter"
-require "kafka/sasl_authenticator"
+require "eb-kafka/cluster"
+require "eb-kafka/producer"
+require "eb-kafka/consumer"
+require "eb-kafka/heartbeat"
+require "eb-kafka/async_producer"
+require "eb-kafka/fetched_message"
+require "eb-kafka/fetch_operation"
+require "eb-kafka/connection_builder"
+require "eb-kafka/instrumenter"
+require "eb-kafka/sasl_authenticator"
 
 module EbKafka
   class Client

@@ -119,7 +119,7 @@ Please see the [documentation site](http://www.rubydoc.info/gems/ruby-kafka) for
 A client must be initialized with at least one Kafka broker, from which the entire Kafka cluster will be discovered. Each client keeps a separate pool of broker connections. Don't use the same client from more than one thread.
 
 ```ruby
-require "kafka"
+require "eb-kafka"
 
 # The first argument is a list of "seed brokers" that will be queried for the full
 # cluster topology. At least one of these *must* be available. `client_id` is
@@ -429,7 +429,7 @@ In this example, a producer is configured in a Rails initializer:
 
 ```ruby
 # config/initializers/kafka_producer.rb
-require "kafka"
+require "eb-kafka"
 
 # Configure the Kafka client with the broker hosts and the Rails
 # logger.
@@ -471,7 +471,7 @@ end
 Consuming messages from a Kafka topic with ruby-kafka is simple:
 
 ```ruby
-require "kafka"
+require "eb-kafka"
 
 kafka = Kafka.new(["kafka1:9092", "kafka2:9092"])
 
@@ -494,7 +494,7 @@ The Consumer API solves all of the above issues, and more. It uses the Consumer 
 Using the API is simple:
 
 ```ruby
-require "kafka"
+require "eb-kafka"
 
 kafka = Kafka.new(["kafka1:9092", "kafka2:9092"])
 
@@ -709,7 +709,7 @@ Most operations are instrumented using [Active Support Notifications](http://api
 
 ```ruby
 require "active_support/notifications"
-require "kafka"
+require "eb-kafka"
 ```
 
 The notifications are namespaced based on their origin, with separate namespaces for the producer and the consumer.
@@ -820,7 +820,7 @@ We recommend monitoring the following:
 The Statsd reporter is automatically enabled when the `kafka/statsd` library is required. You can optionally change the configuration.
 
 ```ruby
-require "kafka/statsd"
+require "eb-kafka/statsd"
 
 # Default is "ruby_kafka".
 Kafka::Statsd.namespace = "custom-namespace"
@@ -839,7 +839,7 @@ The Datadog reporter is automatically enabled when the `kafka/datadog` library i
 
 ```ruby
 # This enables the reporter:
-require "kafka/datadog"
+require "eb-kafka/datadog"
 
 # Default is "ruby_kafka".
 Kafka::Datadog.namespace = "custom-namespace"

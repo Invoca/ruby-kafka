@@ -10,7 +10,7 @@ require "active_support/subscriber"
 module EbKafka
   # Reports operational metrics to a Statsd agent.
   #
-  #     require "kafka/statsd"
+  #     require "eb-kafka/statsd"
   #
   #     # Default is "ruby_kafka".
   #     EbKafka::Statsd.namespace = "custom-namespace"

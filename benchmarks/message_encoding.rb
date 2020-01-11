@@ -1,4 +1,4 @@
-require "kafka"
+require "eb-kafka"
 
 ready "message serialization" do
   before do

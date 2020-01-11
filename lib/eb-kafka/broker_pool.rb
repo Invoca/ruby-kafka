@@ -1,4 +1,4 @@
-require "kafka/broker"
+require "eb-kafka/broker"
 
 module EbKafka
   class BrokerPool
